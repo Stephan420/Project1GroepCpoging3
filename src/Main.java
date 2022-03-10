@@ -5,5 +5,6 @@ public class Main {
         System.out.println("hallo wereld");
         System.out.println("Gaat het dan eindelijk lukken?");
         System.out.println("lukken is gelukt");
+        System.out.println("dank memes");
     }
 }
