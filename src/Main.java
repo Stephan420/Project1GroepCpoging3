@@ -9,5 +9,6 @@ public class Main {
         System.out.println("SWAGYOLO420");
         System.out.println("ノಠ益ಠノ彡┻━┻");
         System.out.println("made in yo momma");
+        System.out.println("yo mama so fat, thanos had to clap");
     }
 }
