@@ -7,5 +7,6 @@ public class Main {
         System.out.println("lukken is gelukt");
         System.out.println("dank memes");
         System.out.println("SWAGYOLO420");
+        System.out.println("ノಠ益ಠノ彡┻━┻");
     }
 }
