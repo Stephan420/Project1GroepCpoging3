@@ -1,14 +1,44 @@
-public class Main {
+import java.util.ArrayList;
 
-    public static void main(String[] args) {
-	// write your code here
-        System.out.println("hallo wereld");
-        System.out.println("Gaat het dan eindelijk lukken?");
-        System.out.println("lukken is gelukt");
-        System.out.println("dank memes");
-        System.out.println("SWAGYOLO420");
-        System.out.println("ノಠ益ಠノ彡┻━┻");
-        System.out.println("made in yo momma");
-        System.out.println("yo mama so fat, thanos had to clap");
+class Examens {
+    String naam;
+    int aantalvragen;
+    ArrayList<Vraag> vragen;
+
+    //public void getAllExamens(){}
+
+}
+
+class Vraag {
+    String vraag;
+    boolean antwoord;
+
+    public Vraag(String vraag,boolean antwoord) {
+        this.vraag = vraag;
+        this.antwoord = antwoord;
     }
+}
+
+class Student{
+    String naam;
+    int nummer;
+    ArrayList<Examens> GeslaagdeExamens;
+    ArrayList<Examens> NietGeslaagdeExamens;
+
+    Student(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
+        this.naam = naam;
+        this.nummer = nummer;
+        this.GeslaagdeExamens = GeslaagdeExamens;
+        this.NietGeslaagdeExamens = NietGeslaagdeExamens;
+    }
+
+    public ArrayList<Examens> getGeslaagdeExamens(){
+        return GeslaagdeExamens;
+    }
+
+    //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
+    //public void BesteStudenten(){}
+    //public void getAllStudents(){}
+
+
 }
