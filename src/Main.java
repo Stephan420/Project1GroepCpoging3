@@ -70,6 +70,17 @@ class Main {
         System.out.println("8) Welke student heeft de meeste examens gehaald?");
         System.out.println("0) Exit");
         System.out.println("Kies een getal van het menu: ");
+        int keuze = scanner.nextInt();
+        switch (keuze) {
+            case 1:
+                System.out.println("Monday");
+                break;
+            case 2:
+                System.out.println("Tuesday");
+                break;
+            default:
+                System.out.println("Voer een getal van 1 t/m 8 of 0: ");
+        }
 
     }
 }
