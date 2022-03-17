@@ -45,11 +45,8 @@ class Student{
 
     //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
     //public void BesteStudenten(){}
-    public static void getAllStudents(){
-        for(Student student : studenten) {
-            System.out.println(student.naam);
-            //yo
-        }
+    public static ArrayList<Student> getAllStudents(){
+        return studenten;
     }
 
 }
@@ -72,8 +69,9 @@ class Main {
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
         switch (keuze) {
+            case 0 -> System.out.println("Exiting....");
             case 1 -> System.out.println("Monday");
-            case 2 -> Student.getAllStudents();
+            case 2 -> System.out.println(Student.getAllStudents());
             default -> System.out.println("Voer een getal van 1 t/m 8 of 0: ");
         }
     }
