@@ -26,7 +26,7 @@ class Student{
     ArrayList<Examens> GeslaagdeExamens;
     ArrayList<Examens> NietGeslaagdeExamens;
 
-    ArrayList<Student> studenten = new ArrayList<Student>();
+    ArrayList<Student> studenten = new ArrayList<>();
 
     Student(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
         this.naam = naam;
@@ -48,6 +48,7 @@ class Student{
     public void getAllStudents(){
         for(Student student : studenten) {
             System.out.println(student.naam);
+            //yo
         }
     }
 
