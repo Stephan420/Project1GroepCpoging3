@@ -48,7 +48,6 @@ class Student{
     public static void getAllStudents(){
         for(Student student : studenten) {
             System.out.println(student.naam);
-            //yo
         }
     }
 
