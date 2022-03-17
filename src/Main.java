@@ -46,8 +46,8 @@ class Student{
     //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
     //public void BesteStudenten(){}
     public void getAllStudents(){
-        for(student : studenten) {
-
+        for(Student student : studenten) {
+            System.out.println(student.naam);
         }
     }
 
