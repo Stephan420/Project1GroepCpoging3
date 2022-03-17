@@ -26,7 +26,7 @@ class Student{
     ArrayList<Examens> GeslaagdeExamens;
     ArrayList<Examens> NietGeslaagdeExamens;
 
-    ArrayList<Student> studenten = new ArrayList<>();
+    static ArrayList<Student> studenten = new ArrayList<>();
 
     Student(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
         this.naam = naam;
@@ -45,7 +45,7 @@ class Student{
 
     //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
     //public void BesteStudenten(){}
-    public void getAllStudents(){
+    public static void getAllStudents(){
         for(Student student : studenten) {
             System.out.println(student.naam);
             //yo
@@ -72,15 +72,9 @@ class Main {
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
         switch (keuze) {
-            case 1:
-                System.out.println("Monday");
-                break;
-            case 2:
-                System.out.println("Tuesday");
-                break;
-            default:
-                System.out.println("Voer een getal van 1 t/m 8 of 0: ");
+            case 1 -> System.out.println("Monday");
+            case 2 -> Student.getAllStudents();
+            default -> System.out.println("Voer een getal van 1 t/m 8 of 0: ");
         }
-
     }
 }
