@@ -26,7 +26,7 @@ class Student{
     ArrayList<Examens> GeslaagdeExamens;
     ArrayList<Examens> NietGeslaagdeExamens;
 
-    static ArrayList<Student> studenten = new ArrayList<>();
+    ArrayList<Student> studenten = new ArrayList<Student>();
 
     Student(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
         this.naam = naam;
@@ -45,10 +45,9 @@ class Student{
 
     //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
     //public void BesteStudenten(){}
-    public static void getAllStudents(){
-        for(Student student : studenten) {
-            System.out.println(student.naam);
-            //yo
+    public void getAllStudents(){
+        for(student : studenten) {
+
         }
     }
 
@@ -73,8 +72,18 @@ class Main {
         int keuze = scanner.nextInt();
         switch (keuze) {
             case 1 -> System.out.println("Monday");
-            case 2 -> Student.getAllStudents();
+            case 2 -> System.out.println("Tuesday");
+            case 3 -> System.out.println("Wednesday");
+            case 4 -> System.out.println("Thursday");
+            case 5 -> System.out.println("Friday");
+            case 6 -> System.out.println("Saturday");
+            case 7 -> System.out.println("Sunday");
+            case 8 -> System.out.println("April");
+            case 0 -> System.out.println("November");
             default -> System.out.println("Voer een getal van 1 t/m 8 of 0: ");
+
+            }
         }
+
     }
 }
