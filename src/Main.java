@@ -73,6 +73,7 @@ class Main {
             case 1 -> System.out.println("Monday");
             case 2 -> System.out.println(Student.getAllStudents());
             default -> System.out.println("Voer een getal van 1 t/m 8 of 0: ");
+            //hats
         }
     }
 }
