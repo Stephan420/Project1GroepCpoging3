@@ -71,6 +71,14 @@ class Main {
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
             case 1 -> System.out.println("Monday");
+            //toetsvragen: aardrijkskunde: is de aarde plat?
+            // weegt de aarde 5,972E24 kg?
+            // is pluto een planeet?
+            //toetsvragen: biologie: is de mytochondria de kern van de cel?
+            // draagt bigfoot schoenmaat 420?
+            // hoort bigfoot niet de naam te hebben bigfeet?
+            //is het brein van de man gemiddeld groter dan die van de vrouw?
+
             case 2 -> System.out.println(Student.getAllStudents());
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
