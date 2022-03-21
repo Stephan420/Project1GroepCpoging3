@@ -1,13 +1,32 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class Examens {
     String naam;
     int aantalvragen;
-    ArrayList<Vraag> vragen;
+    ArrayList<Vraag> alleVragen = initialiseerExamenVragen();
 
-    //public void getAllExamens(){}
+    static ArrayList<Vraag>initialiseerExamenVragen(){
+        ArrayList<Vraag> alleVragen = new ArrayList<Vraag>();
+        Vraag vraag1AK = new Vraag("Is de aarde plat?", false);
+        Vraag vraag2AK = new Vraag("Weegt de aarde 5,972E24 kg?", false);
+        Vraag vraag3AK = new Vraag("Is pluto een planeet?", false);
+        alleVragen.add(vraag1AK);
+        alleVragen.add(vraag2AK);
+        alleVragen.add(vraag3AK);
+    }
+
+    public static ArrayList<Examens> getAllExamens(){
+        return naam;
+    }
+
+
+    //toetsvragen: aardrijkskunde: is de aarde plat?
+    // weegt de aarde 5,972E24 kg?
+    // is pluto een planeet?
+    //toetsvragen: biologie: is de mytochondria de kern van de cel?
+    // draagt bigfoot schoenmaat 420?
+    // hoort bigfoot niet de naam te hebben bigfeet?
 
 }
 
@@ -71,14 +90,7 @@ class Main {
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
             case 1 -> System.out.println("Monday");
-            //toetsvragen: aardrijkskunde: is de aarde plat?
-            // weegt de aarde 5,972E24 kg?
-            // is pluto een planeet?
-            //toetsvragen: biologie: is de mytochondria de kern van de cel?
-            // draagt bigfoot schoenmaat 420?
-            // hoort bigfoot niet de naam te hebben bigfeet?
-            //is het brein van de man gemiddeld groter dan die van de vrouw?
-
+            Examens.
             case 2 -> System.out.println(Student.getAllStudents());
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
@@ -94,7 +106,11 @@ class Main {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Examens> vragen = new ArrayList<>();
+        ArrayList<String> vragen = new ArrayList<>();
+        ArrayList<String> aardrijkskunde = new ArrayList<>();
+        aardrijkskunde.add("Is de aarde plat?");
+
+        ArrayList<Vraag> biologie = new ArrayList<>();
 
         System.out.println("Menu");
         menu();
