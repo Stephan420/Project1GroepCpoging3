@@ -72,7 +72,7 @@ class Main {
             case 0 -> System.out.println("Exiting....");
             case 1 -> System.out.println("Monday");
             case 2 -> System.out.println(Student.getAllStudents());
-            case 3 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 3 -> System.out.println(Student.getAllStudents()); //bullshi
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
             case 5 -> System.out.println(Student.getAllStudents()); //bullshit
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
