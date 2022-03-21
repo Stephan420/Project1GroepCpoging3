@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,24 +24,26 @@ class Vraag {
 class Student{
     String naam;
     int nummer;
+    static int volgendnummer = 1;
     ArrayList<Examens> GeslaagdeExamens;
     ArrayList<Examens> NietGeslaagdeExamens;
 
     static ArrayList<Student> studenten = new ArrayList<>();
 
-    Student(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
+    Student(String naam, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
         this.naam = naam;
-        this.nummer = nummer;
+        this.nummer = volgendnummer;
         this.GeslaagdeExamens = GeslaagdeExamens;
         this.NietGeslaagdeExamens = NietGeslaagdeExamens;
+        volgendnummer = volgendnummer + 1;
     }
 
     public ArrayList<Examens> getGeslaagdeExamens(){
         return GeslaagdeExamens;
     }
 
-    public void createstudent(String naam, int nummer, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens){
-        studenten.add(new Student(naam,nummer,GeslaagdeExamens,NietGeslaagdeExamens));
+    public void createstudent(String naam,ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens){
+        studenten.add(new Student(naam,GeslaagdeExamens,NietGeslaagdeExamens));
     }
 
     //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
@@ -52,11 +55,8 @@ class Student{
 }
 
 class Main {
-    public static void main(String[] args) {
+    public static void menu(){
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Examens> vragen = new ArrayList<>();
-
-        System.out.println("Menu");
         System.out.println("1) Lijst met examens");
         System.out.println("2) Lijst met studenten");
         System.out.println("3) Nieuwe student inschrijven");
@@ -72,7 +72,23 @@ class Main {
             case 0 -> System.out.println("Exiting....");
             case 1 -> System.out.println("Monday");
             case 2 -> System.out.println(Student.getAllStudents());
-            default -> System.out.println("Voer een getal van 1 t/m 8 of 0: ");
+            case 3 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 4 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 5 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 6 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 7 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 8 -> System.out.println(Student.getAllStudents()); //bullshit
+            default -> {
+                System.out.println("Voer een getal van 0 t/m 8: ");
+                menu();
+            }
         }
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Examens> vragen = new ArrayList<>();
+
+        System.out.println("Menu");
+        menu();
     }
 }
