@@ -35,6 +35,16 @@ class Examens {
         System.out.println();
     }
 
+    public static void printVragen(String vraag){
+        System.out.println(vraag);
+    }
+
+    public void printSchema (ArrayList<String> alleVragenAK) {
+//        for(int i = 5; i < 5; i++) {
+        printVragen(alleVragenAK.get(1));
+    //}
+    }
+
 //    public static ArrayList<Examens> getAllExamens(){
 //        System.out.println("De lijst met examens is: ");
 //        System.out.println(aardrijkskundeExamen.naam);
@@ -52,13 +62,18 @@ class Examens {
 
 }
 
-class Vraag {
+class Vraag extends ArrayList<Vraag> {
     String vraag;
     boolean antwoord;
 
     public Vraag(String vraag,boolean antwoord) {
         this.vraag = vraag;
         this.antwoord = antwoord;
+    }
+
+    public String getVraag (){
+
+        return this.vraag;
     }
 }
 
@@ -111,9 +126,9 @@ class Main {
         int keuze = scanner.nextInt();
 
         ArrayList<String> vragen = new ArrayList<>();
-        //ArrayList<String> aardrijkskunde = new ArrayList<>();
-        //ArrayList<Vraag> biologie = new ArrayList<>();
-        Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, null);
+        ArrayList<String> aardrijkskunde = new ArrayList<>();
+        ArrayList<Vraag> biologie = new ArrayList<>();
+        Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, Examens.initialiseerExamenVragenAK());
         Examens biologieExamen = new Examens("Biologie", 5, null);
 
 
@@ -130,6 +145,7 @@ class Main {
                 System.out.println("Geef de naam van het examen: ");
                 scanner.nextLine();
                 String examenNaam = scanner.nextLine();
+                aardrijkskundeExamen.printSchema(aardrijkskunde);
                 menu();
             }
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
