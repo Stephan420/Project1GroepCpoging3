@@ -43,13 +43,7 @@ class Examens {
         System.out.println(alleVragenAK.get(3).vraag);
         System.out.println(alleVragenAK.get(4).vraag);
     }
-
-    //public void printSchema (ArrayList<String> alleVragenAK) {
-        //for(int i = 0; i < alleVragenAK.size(); i++) {
-            //System.out.println(alleVragenAK.get(i));
-        //System.out.println(alleVragenAK.vraag);
-    }
-   // }
+}
 
 
 
@@ -69,11 +63,6 @@ class Vraag {
     public Vraag(String vraag,boolean antwoord) {
         this.vraag = vraag;
         this.antwoord = antwoord;
-    }
-
-    public String getVraag (){
-
-        return this.vraag;
     }
 }
 
@@ -125,10 +114,7 @@ class Main {
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
 
-        ArrayList<String> vragen = new ArrayList<>();
 
-
-        ArrayList<Vraag> biologie = new ArrayList<>();
         Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, Examens.initialiseerExamenVragenAK());
         Examens biologieExamen = new Examens("Biologie", 5, null);
 
