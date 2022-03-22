@@ -6,6 +6,7 @@ class Examens {
     int aantalvragen;
     ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
 
+
     public Examens(String naam, int aantalvragen, ArrayList<Vraag> alleVragen){
 
         this.naam = naam;
@@ -14,7 +15,7 @@ class Examens {
     }
 
     static ArrayList<Vraag>initialiseerExamenVragenAK(){
-        ArrayList<Vraag> alleVragenAK = new ArrayList<Vraag>();
+        ArrayList<Vraag> alleVragenAK = new ArrayList<>();
         Vraag vraag1AK = new Vraag("Is de aarde plat?", false);
         Vraag vraag2AK = new Vraag("Stoot waterkracht CO2 uit?", false);
         Vraag vraag3AK = new Vraag("Is steenkool een metamorf gesteente?", false);
@@ -35,22 +36,21 @@ class Examens {
         System.out.println();
     }
 
-    public static void printVragen(String vraag){
-        System.out.println(vraag);
+    public static void printVragen(ArrayList<Vraag> alleVragenAK){
+        System.out.println(alleVragenAK.get(0).vraag);
+        System.out.println(alleVragenAK.get(1).vraag);
+        System.out.println(alleVragenAK.get(2).vraag);
+        System.out.println(alleVragenAK.get(3).vraag);
+        System.out.println(alleVragenAK.get(4).vraag);
     }
 
-    public void printSchema (ArrayList<String> alleVragenAK) {
-//        for(int i = 5; i < 5; i++) {
-        printVragen(alleVragenAK.get(1));
-    //}
+    //public void printSchema (ArrayList<String> alleVragenAK) {
+        //for(int i = 0; i < alleVragenAK.size(); i++) {
+            //System.out.println(alleVragenAK.get(i));
+        //System.out.println(alleVragenAK.vraag);
     }
+   // }
 
-//    public static ArrayList<Examens> getAllExamens(){
-//        System.out.println("De lijst met examens is: ");
-//        System.out.println(aardrijkskundeExamen.naam);
-//        System.out.println(biologieExamen.naam);
-//        System.out.println();
-//    }
 
 
     //toetsvragen: aardrijkskunde: is de aarde plat?
@@ -60,9 +60,9 @@ class Examens {
     // draagt bigfoot schoenmaat 420?
     // hoort bigfoot niet de naam te hebben bigfeet?
 
-}
+//}
 
-class Vraag extends ArrayList<Vraag> {
+class Vraag {
     String vraag;
     boolean antwoord;
 
@@ -126,7 +126,8 @@ class Main {
         int keuze = scanner.nextInt();
 
         ArrayList<String> vragen = new ArrayList<>();
-        ArrayList<String> aardrijkskunde = new ArrayList<>();
+
+
         ArrayList<Vraag> biologie = new ArrayList<>();
         Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, Examens.initialiseerExamenVragenAK());
         Examens biologieExamen = new Examens("Biologie", 5, null);
@@ -144,8 +145,9 @@ class Main {
             case 5 -> {
                 System.out.println("Geef de naam van het examen: ");
                 scanner.nextLine();
+                aardrijkskundeExamen.printVragen(Examens.initialiseerExamenVragenAK());
                 String examenNaam = scanner.nextLine();
-                aardrijkskundeExamen.printSchema(aardrijkskunde);
+
                 menu();
             }
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
