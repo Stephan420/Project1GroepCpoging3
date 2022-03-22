@@ -4,34 +4,43 @@ import java.util.Scanner;
 class Examens {
     String naam;
     int aantalvragen;
-    ArrayList<Vraag> alleVragen = initialiseerExamenVragen();
+    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
 
     public Examens(String naam, int aantalvragen, ArrayList<Vraag> alleVragen){
 
         this.naam = naam;
         this.aantalvragen = aantalvragen;
-        this.alleVragen = alleVragen;
+        this.alleVragenAK = alleVragenAK;
     }
 
-    static ArrayList<Vraag>initialiseerExamenVragen(){
-        ArrayList<Vraag> alleVragen = new ArrayList<Vraag>();
+    static ArrayList<Vraag>initialiseerExamenVragenAK(){
+        ArrayList<Vraag> alleVragenAK = new ArrayList<Vraag>();
         Vraag vraag1AK = new Vraag("Is de aarde plat?", false);
         Vraag vraag2AK = new Vraag("Stoot waterkracht CO2 uit?", false);
         Vraag vraag3AK = new Vraag("Is steenkool een metamorf gesteente?", false);
         Vraag vraag4AK = new Vraag("Stoot biomassa CO2 uit als je het verbrandt?", true);
         Vraag vraag5AK = new Vraag("De langste plaatsnaam ter wereld heet 'Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch'", true);
-        alleVragen.add(vraag1AK);
-        alleVragen.add(vraag2AK);
-        alleVragen.add(vraag3AK);
-        alleVragen.add(vraag4AK);
-        alleVragen.add(vraag5AK);
-        return alleVragen;
+        alleVragenAK.add(vraag1AK);
+        alleVragenAK.add(vraag2AK);
+        alleVragenAK.add(vraag3AK);
+        alleVragenAK.add(vraag4AK);
+        alleVragenAK.add(vraag5AK);
+        return alleVragenAK;
     }
 
-//    public static ArrayList<Examens> getAllExamens(ArrayList<Vraag>alleVragen){
-//        System.out.println();
-//        return naam;
+    public static void getAllExamens(Examens aardrijkskundeExamen, Examens biologieExamen){
+        System.out.println("De lijst met examens is: ");
+        System.out.println(aardrijkskundeExamen.naam);
+        System.out.println(biologieExamen.naam);
+        System.out.println();
     }
+
+//    public static ArrayList<Examens> getAllExamens(){
+//        System.out.println("De lijst met examens is: ");
+//        System.out.println(aardrijkskundeExamen.naam);
+//        System.out.println(biologieExamen.naam);
+//        System.out.println();
+//    }
 
 
     //toetsvragen: aardrijkskunde: is de aarde plat?
@@ -41,7 +50,7 @@ class Examens {
     // draagt bigfoot schoenmaat 420?
     // hoort bigfoot niet de naam te hebben bigfeet?
 
-//}
+}
 
 class Vraag {
     String vraag;
@@ -102,20 +111,27 @@ class Main {
         int keuze = scanner.nextInt();
 
         ArrayList<String> vragen = new ArrayList<>();
-        ArrayList<String> aardrijkskunde = new ArrayList<>();
-        aardrijkskunde.add("Is de aarde plat?");
+        //ArrayList<String> aardrijkskunde = new ArrayList<>();
+        //ArrayList<Vraag> biologie = new ArrayList<>();
         Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, null);
+        Examens biologieExamen = new Examens("Biologie", 5, null);
 
-        ArrayList<Vraag> biologie = new ArrayList<>();
 
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
-            case 1 -> System.out.println(aardrijkskunde);
-
+            case 1 -> {
+                Examens.getAllExamens(aardrijkskundeExamen, biologieExamen);
+                menu();
+            }
             case 2 -> System.out.println(Student.getAllStudents());
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 5 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 5 -> {
+                System.out.println("Geef de naam van het examen: ");
+                scanner.nextLine();
+                String examenNaam = scanner.nextLine();
+                menu();
+            }
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
             case 7 -> System.out.println(Student.getAllStudents()); //bullshit
             case 8 -> System.out.println(Student.getAllStudents()); //bullshit
