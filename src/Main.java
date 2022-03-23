@@ -33,11 +33,11 @@ class Examens {
 
     static ArrayList<Vraag>initialiseerExamenVragenBIO(){
         ArrayList<Vraag> alleVragenBIO = new ArrayList<>();
-        Vraag vraag1BIO = new Vraag("", );
-        Vraag vraag2BIO = new Vraag("", );
-        Vraag vraag3BIO = new Vraag("", );
-        Vraag vraag4BIO = new Vraag("", );
-        Vraag vraag5BIO = new Vraag("", );
+        Vraag vraag1BIO = new Vraag("De hersenen bij mannen zijn groter dan bij vrouwen. Klopt dit?", true);
+        Vraag vraag2BIO = new Vraag("De menstruatiecyclus duurt bij een vrouw altijd even lang. Klopt dit?", false);
+        Vraag vraag3BIO = new Vraag("De capybara is de 's werelds grootste knaagdier. Klopt dit?", true);
+        Vraag vraag4BIO = new Vraag("Een olifant kan springen. Klopt deze bewering?",false );
+        Vraag vraag5BIO = new Vraag("Een pinguin kan bijna twee meter hoog in de lucht springen. Klopt deze bewering?", true);
         alleVragenBIO.add(vraag1BIO);
         alleVragenBIO.add(vraag2BIO);
         alleVragenBIO.add(vraag3BIO);
@@ -53,13 +53,21 @@ class Examens {
         System.out.println();
     }
 
-    public static void printVragen(ArrayList<Vraag> alleVragenAK){
-        System.out.println(alleVragenAK.get(0).vraag);
-        System.out.println(alleVragenAK.get(1).vraag);
-        System.out.println(alleVragenAK.get(2).vraag);
-        System.out.println(alleVragenAK.get(3).vraag);
-        System.out.println(alleVragenAK.get(4).vraag);
+    public static void printVragenAK(ArrayList<Vraag> alleVragenAK) {
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < alleVragenAK.size(); i++) {
+            System.out.println(alleVragenAK.get(i).vraag);
+            scanner.nextLine();
+        }
     }
+    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO){
+        Scanner scanner = new Scanner(System.in);
+        for(int j=0; j<alleVragenBIO.size(); j++){
+            System.out.println(alleVragenBIO.get(j).vraag);
+            scanner.nextLine();
+        }
+    }
+
 }
 
 
@@ -71,7 +79,7 @@ class Examens {
     // draagt bigfoot schoenmaat 420?
     // hoort bigfoot niet de naam te hebben bigfeet?
 
-//}
+
 
 class Vraag {
     String vraag;
@@ -130,10 +138,11 @@ class Main {
         System.out.println("0) Exit");
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
+        scanner.nextLine();
 
 
         Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, Examens.initialiseerExamenVragenAK());
-        Examens biologieExamen = new Examens("Biologie", 5, null);
+        Examens biologieExamen = new Examens("Biologie", 5, Examens.initialiseerExamenVragenBIO());
 
 
         switch (keuze) {
@@ -146,10 +155,15 @@ class Main {
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
             case 5 -> {
-                System.out.println("Geef de naam van het examen: ");
+                System.out.println("Geef het getal van het examen dat je wilt afnemen: ");
+                System.out.println("1. aardrijkskunde");
+                System.out.println("2. biologie");
+                int examenKeuze =scanner.nextInt();
                 scanner.nextLine();
-                aardrijkskundeExamen.printVragen(Examens.initialiseerExamenVragenAK());
-                String examenNaam = scanner.nextLine();
+                switch (examenKeuze){
+                    case 1 -> aardrijkskundeExamen.printVragenAK(Examens.initialiseerExamenVragenAK());
+                    case 2 -> biologieExamen.printVragenBIO(Examens.initialiseerExamenVragenBIO());
+                }
                 menu();
             }
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
