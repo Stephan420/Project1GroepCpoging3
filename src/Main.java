@@ -5,6 +5,7 @@ class Examens {
     String naam;
     int aantalvragen;
     ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
+    ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
 
 
     public Examens(String naam, int aantalvragen, ArrayList<Vraag> alleVragen){
@@ -12,6 +13,7 @@ class Examens {
         this.naam = naam;
         this.aantalvragen = aantalvragen;
         this.alleVragenAK = alleVragenAK;
+        this.alleVragenBIO = alleVragenBIO;
     }
 
     static ArrayList<Vraag>initialiseerExamenVragenAK(){
@@ -27,6 +29,21 @@ class Examens {
         alleVragenAK.add(vraag4AK);
         alleVragenAK.add(vraag5AK);
         return alleVragenAK;
+    }
+
+    static ArrayList<Vraag>initialiseerExamenVragenBIO(){
+        ArrayList<Vraag> alleVragenBIO = new ArrayList<>();
+        Vraag vraag1BIO = new Vraag("", );
+        Vraag vraag2BIO = new Vraag("", );
+        Vraag vraag3BIO = new Vraag("", );
+        Vraag vraag4BIO = new Vraag("", );
+        Vraag vraag5BIO = new Vraag("", );
+        alleVragenBIO.add(vraag1BIO);
+        alleVragenBIO.add(vraag2BIO);
+        alleVragenBIO.add(vraag3BIO);
+        alleVragenBIO.add(vraag4BIO);
+        alleVragenBIO.add(vraag5BIO);
+        return alleVragenBIO;
     }
 
     public static void getAllExamens(Examens aardrijkskundeExamen, Examens biologieExamen){
@@ -133,7 +150,6 @@ class Main {
                 scanner.nextLine();
                 aardrijkskundeExamen.printVragen(Examens.initialiseerExamenVragenAK());
                 String examenNaam = scanner.nextLine();
-
                 menu();
             }
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
@@ -147,7 +163,6 @@ class Main {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
 
         System.out.println("Menu");
         menu();
