@@ -74,6 +74,15 @@ class Examens {
                 counter++;
             }
         }
+        System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
+        if (counter >=3){
+            System.out.println("Je hebt "+ counter+ " goed.");
+            System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
+        }
+        else{
+            System.out.println("Je hebt "+ counter + " goed");
+            System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
+        }
     }
 
     //Hier word met behulp van een for loop de toets BIO afgenomen
