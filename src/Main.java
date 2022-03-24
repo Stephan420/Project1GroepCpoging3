@@ -8,7 +8,7 @@ class Examens {
     ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
 
 
-    public Examens(String naam, int aantalvragen, ArrayList<Vraag> alleVragen){
+    public Examens(String naam, int aantalvragen){
         this.naam = naam;
         this.aantalvragen = aantalvragen;
     }
@@ -62,15 +62,15 @@ class Examens {
         String antwoordAK = "";
         String checkAntwoordAK = "";
         int counter = 0;
-        for (int i = 0; i < alleVragenAK.size(); i++) {
-            System.out.println(alleVragenAK.get(i).vraag);
+        for (Vraag vraag : alleVragenAK) {
+            System.out.println(vraag.vraag);
             antwoordAK = scanner.nextLine();
-            if(alleVragenAK.get(i).antwoord == true){
+            if (vraag.antwoord) {
                 checkAntwoordAK = "Ja";
-            } else{
+            } else {
                 checkAntwoordAK = "Nee";
             }
-            if(antwoordAK.equals(checkAntwoordAK)) {
+            if (antwoordAK.equals(checkAntwoordAK)) {
                 counter++;
             }
         }
@@ -83,15 +83,15 @@ class Examens {
         String antwoordBIO = "";
         String checkAntwoordBIO = "";
         int counter = 0;
-        for (int i = 0; i < alleVragenBIO.size(); i++) {
-            System.out.println(alleVragenBIO.get(i).vraag);
+        for (Vraag vraag : alleVragenBIO) {
+            System.out.println(vraag.vraag);
             antwoordBIO = scanner.nextLine();
-            if(alleVragenBIO.get(i).antwoord == true){
+            if (vraag.antwoord) {
                 checkAntwoordBIO = "Ja";
-            } else{
+            } else {
                 checkAntwoordBIO = "Nee";
             }
-            if(antwoordBIO.equals(checkAntwoordBIO)) {
+            if (antwoordBIO.equals(checkAntwoordBIO)) {
                 counter++;
             }
         }
@@ -161,8 +161,8 @@ class Main {
         scanner.nextLine();
 
         //Hier worden de objecten van de examens aangemaakt en gekoppeld aan de methode Examens.initialiseerExamenVragen
-        Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5, Examens.initialiseerExamenVragenAK());
-        Examens biologieExamen = new Examens("Biologie", 5, Examens.initialiseerExamenVragenBIO());
+        Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5);
+        Examens biologieExamen = new Examens("Biologie", 5);
 
 
         switch (keuze) {
