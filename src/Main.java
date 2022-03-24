@@ -145,8 +145,19 @@ class Student{
 }
 
 class Main {
+    static Scanner scanner = new Scanner(System.in);
+
+    //Hier worden de objecten van de examens aangemaakt
+    static Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5);
+    static Examens biologieExamen = new Examens("Biologie", 5);
+
+    static ArrayList<Examens> examens = new ArrayList<>();
+
+    static Student Jeroen = new Student("Jeroen",examens,examens);
+    static Student Pim = new Student("Pim",examens,examens);
+
     public static void menu(){
-        Scanner scanner = new Scanner(System.in);
+
         System.out.println("1) Lijst met examens");
         System.out.println("2) Lijst met studenten");
         System.out.println("3) Nieuwe student inschrijven");
@@ -160,36 +171,15 @@ class Main {
         int keuze = scanner.nextInt();
         scanner.nextLine();
 
-        //Hier worden de objecten van de examens aangemaakt en gekoppeld aan de methode Examens.initialiseerExamenVragen
-        Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5);
-        Examens biologieExamen = new Examens("Biologie", 5);
 
 
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
-            case 1 -> {
-                //Hier word de huidige lijst van de examens doorgegeven
-                Examens.getAllExamens(aardrijkskundeExamen, biologieExamen);
-                menu();
-            }
+            case 1 -> case1();
             case 2 -> System.out.println(Student.getAllStudents());
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 5 -> {
-                //Er word hier een getal gekozen voor het examen
-                System.out.println("Geef het getal van het examen dat je wilt afnemen: ");
-                System.out.println("1. aardrijkskunde");
-                System.out.println("2. biologie");
-                int examenKeuze =scanner.nextInt();
-                scanner.nextLine();
-                switch (examenKeuze){
-                    //Wanneer 1 word getypt begint het AK examen
-                    case 1 -> aardrijkskundeExamen.printVragenAK(Examens.initialiseerExamenVragenAK());
-                    //Wanneer 2 word getypt begint het BIO examen
-                    case 2 -> biologieExamen.printVragenBIO(Examens.initialiseerExamenVragenBIO());
-                }
-                menu();
-            }
+            case 5 -> case5();
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
             case 7 -> System.out.println(Student.getAllStudents()); //bullshit
             case 8 -> System.out.println(Student.getAllStudents()); //bullshit
@@ -199,9 +189,27 @@ class Main {
             }
         }
     }
+    public static void case1() {
+        //Hier word de huidige lijst van de examens doorgegeven
+        Examens.getAllExamens(aardrijkskundeExamen, biologieExamen);
+        menu();
+    }
+    public static void case5() {
+        //Er word hier een getal gekozen voor het examen
+        System.out.println("Geef het getal van het examen dat je wilt afnemen: ");
+        System.out.println("1. aardrijkskunde");
+        System.out.println("2. biologie");
+        int examenKeuze = scanner.nextInt();
+        scanner.nextLine();
+        switch (examenKeuze){
+            //Wanneer 1 word getypt begint het AK examen
+            case 1 -> aardrijkskundeExamen.printVragenAK(Examens.initialiseerExamenVragenAK());
+            //Wanneer 2 word getypt begint het BIO examen
+            case 2 -> biologieExamen.printVragenBIO(Examens.initialiseerExamenVragenBIO());
+        }
+        menu();
+    }
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.println("Menu");
         menu();
     }
