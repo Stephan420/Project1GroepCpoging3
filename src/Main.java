@@ -127,8 +127,13 @@ class Student{
     ArrayList<Examens> GeslaagdeExamens;
     ArrayList<Examens> NietGeslaagdeExamens;
 
-    static ArrayList<Student> studenten = new ArrayList<>();
+    private static ArrayList<Student> studenten() {
+        ArrayList<Student> alleStudenten = new ArrayList<Student>();
+        Student Jeroen = new Student("Jeroen" , Examens.aardrijkskundeExamen, );
+        Student Pim = new Student("Pim",examens,examens);
 
+        return alleOefeningen;
+    }
     Student(String naam, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
         this.naam = naam;
         this.nummer = volgendnummer;
@@ -162,11 +167,8 @@ class Main {
 
     static ArrayList<Examens> examens = new ArrayList<>();
 
-    static Student Jeroen = new Student("Jeroen",examens,examens);
-    static Student Pim = new Student("Pim",examens,examens);
 
     public static void menu(){
-
         System.out.println("1) Lijst met examens");
         System.out.println("2) Lijst met studenten");
         System.out.println("3) Nieuwe student inschrijven");
@@ -179,9 +181,6 @@ class Main {
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
         scanner.nextLine();
-
-
-
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
             case 1 -> case1();
@@ -189,7 +188,7 @@ class Main {
             case 3 -> System.out.println(Student.getAllStudents()); //bullshit
             case 4 -> System.out.println(Student.getAllStudents()); //bullshit
             case 5 -> case5();
-            case 6 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 6 -> case6(); //bullshit
             case 7 -> System.out.println(Student.getAllStudents()); //bullshit
             case 8 -> System.out.println(Student.getAllStudents()); //bullshit
             default -> {
@@ -221,5 +220,31 @@ class Main {
     public static void main(String[] args) {
         System.out.println("Menu");
         menu();
+    }
+
+    public static void case6 () {
+        Scanner scanner = new Scanner (System.in);
+        System.out.println("Vul je studentennummer in");  // Gekozen student
+        int firststnmmr = scanner.nextInt();
+        System.out.println("Vul je examen in");   // Gekozen examen
+        String firstexamen = scanner.nextLine();
+        boolean geslaagd = false;  // Is student geslaagd??
+        var studenten = Student.getAllStudents();
+        // hoe pak ik de geslaagde examens array van de gekozen student??
+        for ( int x = 0; x <= studenten.size(); x ++) {
+            if (studenten.get(x).nummer == firststnmmr) {
+                Student gekozenStudent = studenten.get(x);
+                var geslaagdeExamens = gekozenStudent.getGeslaagdeExamens();
+                for (int i = 0; i <= geslaagdeExamens.size(); i++){
+                    if (geslaagdeExamens.get(i).naam.equals(firstexamen)) {
+                        geslaagd = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if(geslaagd){
+            System.out.println("De student is geslaagd voor de examen " + firstexamen);
+        }
     }
 }
