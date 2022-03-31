@@ -249,6 +249,7 @@ class Menu extends Main{
             case 1 -> aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK());
             //Wanneer 2 word getypt begint het BIO examen
             case 2 -> biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO());
+            default -> System.out.println("Er is geen 1 of 2 getypt. Er word teruggegaan naar het begin van het menu.");
         }
         menu();
     }
@@ -267,9 +268,6 @@ class Main {
 
     Student Jeroen = new Student("Jeroen",examens,examens);
     Student Pim = new Student("Pim",examens,examens);
-
-
-
 
     public static void main(String[] args) {
         System.out.println("Menu");
