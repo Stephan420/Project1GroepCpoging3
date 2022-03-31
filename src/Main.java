@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Examens {
+class Examen {
     String naam;
     int aantalvragen;
     ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
     ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
 
-    public Examens(String naam, int aantalvragen){
+    public Examen(String naam, int aantalvragen){
         this.naam = naam;
         this.aantalvragen = aantalvragen;
     }
@@ -47,7 +47,7 @@ class Examens {
     }
 
     //Hier word de huidige lijst met examens geprint
-    public static void getAllExamens(Examens aardrijkskundeExamen, Examens biologieExamen){
+    public static void getAllExamen(Examen aardrijkskundeExamen, Examen biologieExamen){
         System.out.println("De lijst met examens is: ");
         System.out.println(aardrijkskundeExamen.naam);
         System.out.println(biologieExamen.naam);
@@ -147,28 +147,28 @@ class Student{
     String naam;
     int nummer;
     static int volgendnummer = 1;
-    ArrayList<Examens> GeslaagdeExamens;
-    ArrayList<Examens> NietGeslaagdeExamens;
+    ArrayList<Examen> GeslaagdeExamen;
+    ArrayList<Examen> NietGeslaagdeExamen;
 
     static ArrayList<Student> studenten = new ArrayList<>();
 
-    Student(String naam, ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens) {
+    Student(String naam, ArrayList<Examen> GeslaagdeExamen,ArrayList<Examen> NietGeslaagdeExamen) {
         this.naam = naam;
         this.nummer = volgendnummer;
-        this.GeslaagdeExamens = GeslaagdeExamens;
-        this.NietGeslaagdeExamens = NietGeslaagdeExamens;
+        this.GeslaagdeExamen = GeslaagdeExamen;
+        this.NietGeslaagdeExamen = NietGeslaagdeExamen;
         volgendnummer = volgendnummer + 1;
     }
 
-    public ArrayList<Examens> getGeslaagdeExamens(){
-        return GeslaagdeExamens;
+    public ArrayList<Examen> getGeslaagdeExamen(){
+        return GeslaagdeExamen;
     }
 
-    public static void createstudent(String naam,ArrayList<Examens> GeslaagdeExamens,ArrayList<Examens> NietGeslaagdeExamens){
-        studenten.add(new Student(naam,GeslaagdeExamens,NietGeslaagdeExamens));
+    public static void createstudent(String naam,ArrayList<Examen> GeslaagdeExamen,ArrayList<Examen> NietGeslaagdeExamen){
+        studenten.add(new Student(naam,GeslaagdeExamen,NietGeslaagdeExamen));
     }
 
-    //public void IsStudentGeslaagdVoorExamen(Student student, Examens examen){}
+    //public void IsStudentGeslaagdVoorExamen(Student student, Examen examen){}
     //public void BesteStudenten(){}
     public static ArrayList<Student> getAllStudents(){
         return studenten;
@@ -176,20 +176,7 @@ class Student{
 
 }
 
-class Main {
-    static Scanner scanner = new Scanner(System.in);
-
-
-    //Hier worden de objecten van de examens aangemaakt
-    static Examens aardrijkskundeExamen = new Examens("Aardrijkskunde", 5);
-    static Examens biologieExamen = new Examens("Biologie", 5);
-
-    static ArrayList<Examens> examens = new ArrayList<>();
-
-    Student Jeroen = new Student("Jeroen",examens,examens);
-    Student Pim = new Student("Pim",examens,examens);
-
-
+class Menu extends Main{
 
     public static void menu(){
 
@@ -226,7 +213,7 @@ class Main {
     }
     public static void case1() {
         //Hier word de huidige lijst van de examens doorgegeven
-        Examens.getAllExamens(aardrijkskundeExamen, biologieExamen);
+        Examen.getAllExamen(aardrijkskundeExamen, biologieExamen);
         menu();
     }
     public static void case2() {
@@ -259,15 +246,34 @@ class Main {
         scanner.nextLine();
         switch (examenKeuze){
             //Wanneer 1 word getypt begint het AK examen
-            case 1 -> aardrijkskundeExamen.printVragenAK(Examens.initialiseerExamenVragenAK());
+            case 1 -> aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK());
             //Wanneer 2 word getypt begint het BIO examen
-            case 2 -> biologieExamen.printVragenBIO(Examens.initialiseerExamenVragenBIO());
+            case 2 -> biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO());
         }
         menu();
     }
+
+}
+
+class Main {
+    static Scanner scanner = new Scanner(System.in);
+
+
+    //Hier worden de objecten van de examens aangemaakt
+    static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
+    static Examen biologieExamen = new Examen("Biologie", 5);
+
+    static ArrayList<Examen> examens = new ArrayList<>();
+
+    Student Jeroen = new Student("Jeroen",examens,examens);
+    Student Pim = new Student("Pim",examens,examens);
+
+
+
+
     public static void main(String[] args) {
         System.out.println("Menu");
-        menu();
+        Menu.menu();
 
     }
 }
