@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -146,40 +147,31 @@ class Vraag {
 class Student{
     String naam;
     int nummer;
-    static int volgendnummer = 1;
-    ArrayList<Examen> GeslaagdeExamen;
-    ArrayList<Examen> NietGeslaagdeExamen;
+    static int volgendnummer = 973645;
+    static ArrayList<Student> allStudents = new ArrayList<Student>();
 
-    static ArrayList<Student> studenten = new ArrayList<>();
-
-    Student(String naam, ArrayList<Examen> GeslaagdeExamen,ArrayList<Examen> NietGeslaagdeExamen) {
+    Student(String naam) {
         this.naam = naam;
         this.nummer = volgendnummer;
-        this.GeslaagdeExamen = GeslaagdeExamen;
-        this.NietGeslaagdeExamen = NietGeslaagdeExamen;
-        volgendnummer = volgendnummer + 1;
+        volgendnummer++;
     }
-
-    public ArrayList<Examen> getGeslaagdeExamen(){
-        return GeslaagdeExamen;
+    public static void createStudent(String name){
+        Student newStudent = new Student(name);
+        allStudents.add(newStudent);
     }
-
-    public static void createstudent(String naam,ArrayList<Examen> GeslaagdeExamen,ArrayList<Examen> NietGeslaagdeExamen){
-        studenten.add(new Student(naam,GeslaagdeExamen,NietGeslaagdeExamen));
+    public String getName(){
+        return this.naam;
     }
-
-    //public void IsStudentGeslaagdVoorExamen(Student student, Examen examen){}
-    //public void BesteStudenten(){}
+    public int getNumber(){
+        return this.nummer;
+    }
     public static ArrayList<Student> getAllStudents(){
-        return studenten;
+        return allStudents;
     }
-
 }
 
 class Menu extends Main{
-
     public static void menu(){
-
         System.out.println("1) Lijst met examens");
         System.out.println("2) Lijst met studenten");
         System.out.println("3) Nieuwe student inschrijven");
@@ -192,8 +184,6 @@ class Menu extends Main{
         System.out.println("Kies een getal van het menu: ");
         int keuze = scanner.nextInt();
         scanner.nextLine();
-
-
 
         switch (keuze) {
             case 0 -> System.out.println("Exiting....");
@@ -210,6 +200,7 @@ class Menu extends Main{
                 menu();
             }
         }
+        menu();
     }
     public static void case1() {
         //Hier word de huidige lijst van de examens doorgegeven
@@ -217,25 +208,16 @@ class Menu extends Main{
         menu();
     }
     public static void case2() {
-        if (Student.getAllStudents().size() == 0) {
-            System.out.println("Er zijn geen studenten");
-        }
-        else {
-            for (Student students:Student.getAllStudents()) {
-                System.out.println(students.naam);
-            }
-        }
+        ArrayList<Student> students = Student.getAllStudents();
+        students.forEach(student -> {
+            System.out.println(student.getNumber() + ") " + student.getName());
+        });
         menu();
     }
     public static void case3() {
         System.out.println("Geef de naam van de student:");
-        String naam = scanner.nextLine();
-        Student.createstudent(naam,examens,examens);
-        //TODO dit nog ff fixen
-        System.out.println("Student aangemaakt");
-        System.out.println("Naam: " + naam);
-        System.out.println("Nummer: " + Student.studenten.get(Student.studenten.size()-1).nummer);
-        menu();
+        String name = scanner.nextLine();
+        Student.createStudent(name);
     }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
@@ -256,22 +238,75 @@ class Menu extends Main{
 
 }
 
+class Result{
+    public Student student;
+    public Examen examen;
+    public boolean result;
+    static ArrayList<Result> allResults = new ArrayList<Result>();
+
+    public Result(Student student,Examen examen, boolean result) {
+        this.student = student;
+        this.examen = examen;
+        this.result = result;
+    }
+
+    public static void registerResult(Student student, Examen examen, boolean value){
+        Result result = new Result(student, examen, value);
+        allResults.add(result);
+    }
+
+    public static void getResult(Student student, Examen examen){
+        allResults.forEach( result -> {
+                if(student == result.student && examen == result.examen){
+                    if(result.result){
+                        System.out.println("Je hebt het examen gehaald");
+                    } else {
+                        System.out.println("Je hebt het examen niet gehaald");
+                    }
+                }
+            }
+        );
+    }
+
+//    public Student meestGeslaagdeStudent(){
+//        Integer count = 0;
+//        Student.getAllStudents().forEach((chosenStudent) -> {
+//                    allResults.forEach((chosenResult) -> {
+//                        if(chosenResult.student.equals(chosenStudent)){
+//                            count++;
+//                        }
+//                    });
+//                }
+//        );
+//        return winner;
+//    }
+}
+
 class Main {
     static Scanner scanner = new Scanner(System.in);
-
-
     //Hier worden de objecten van de examens aangemaakt
     static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
     static Examen biologieExamen = new Examen("Biologie", 5);
 
     static ArrayList<Examen> examens = new ArrayList<>();
 
-    Student Jeroen = new Student("Jeroen",examens,examens);
-    Student Pim = new Student("Pim",examens,examens);
-
     public static void main(String[] args) {
+        // hardcoded studenten toevoegen.
+        Student.createStudent("Jeroen");
+        Student.createStudent("Pim");
+
+        // hardcoded resultaten:
+        var alleStudenten = Student.getAllStudents();
+        alleStudenten.forEach(student -> {
+            // gehaalde aardrijkskunde examens
+            Result.registerResult(student, aardrijkskundeExamen, true);
+        });
+        alleStudenten.forEach(student -> {
+            // niet behaalde biologie examens
+            Result.registerResult(student, biologieExamen, false);
+        });
+
         System.out.println("Menu");
         Menu.menu();
-
     }
 }
