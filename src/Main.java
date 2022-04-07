@@ -190,7 +190,7 @@ class Menu extends Main{
             case 1 -> case1();
             case 2 -> case2();
             case 3 -> case3();
-            case 4 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 4 -> case4();
             case 5 -> case5();
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
             case 7 -> System.out.println(Student.getAllStudents()); //bullshit
@@ -218,6 +218,17 @@ class Menu extends Main{
         System.out.println("Geef de naam van de student:");
         String name = scanner.nextLine();
         Student.createStudent(name);
+    }
+    public static void case4() {
+        System.out.println("Geef het studentnummer van de student die je wilt verwijderen:");
+        int studentennummer = scanner.nextInt();
+        for (Student student : Student.allStudents) {
+            if (student.nummer == studentennummer) {
+                Student.allStudents.remove(student);
+                System.out.println("Student verwijderd");
+            }
+        }
+
     }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
