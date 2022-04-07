@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 class Examen {
@@ -192,7 +193,7 @@ class Menu extends Main{
             case 3 -> case3();
             case 4 -> case4();
             case 5 -> case5();
-            case 6 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 6 -> case6();
             case 7 -> case7();
             case 8 -> System.out.println(Student.getAllStudents()); //bullshit
             default -> {
@@ -246,6 +247,30 @@ class Menu extends Main{
         }
         menu();
     }
+    public static Student studentnum(int studentennummer) {
+        for (Student student : Student.allStudents) {
+            if (student.nummer == studentennummer) {
+                return student;
+            }
+        }
+        return null;
+    }
+    public static Examen exam(String naam) {
+        if (naam.equals("Biologie")) {
+            return biologieExamen;
+        }
+        else {
+            return aardrijkskundeExamen;
+        }
+    }
+    public static void case6() {
+        System.out.println("Geef het nummer van de student");
+        int studentennummer = scanner.nextInt();
+        System.out.println("Geef het examen");
+        scanner.nextLine();
+        String exam = scanner.nextLine();
+        Result.getResult(studentnum(studentennummer),exam(exam));
+    }
     public static void case7() {
         System.out.println("Geef het nummer van de student waarvan je alle geslaagde examens wilt:");
         int studentennummer = scanner.nextInt();
@@ -278,12 +303,13 @@ class Result{
     }
 
     public static void getResult(Student student, Examen examen){
+        System.out.println(student.naam + " " + examen.naam);
         allResults.forEach( result -> {
                 if(student == result.student && examen == result.examen){
                     if(result.result){
-                        System.out.println("Je hebt het examen gehaald");
+                        System.out.println("Deze student heeft het examen gehaald");
                     } else {
-                        System.out.println("Je hebt het examen niet gehaald");
+                        System.out.println("Deze student heeft het examen niet gehaald");
                     }
                 }
             }
