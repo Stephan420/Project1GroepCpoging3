@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Examen {
@@ -194,7 +195,7 @@ class Menu extends Main{
             case 5 -> case5();
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
             case 7 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 8 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 8 -> case8();
             default -> {
                 System.out.println("Voer een getal van 0 t/m 8: ");
                 menu();
@@ -228,7 +229,6 @@ class Menu extends Main{
                 System.out.println("Student verwijderd");
             }
         }
-
     }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
@@ -245,6 +245,10 @@ class Menu extends Main{
             default -> System.out.println("Er is geen 1 of 2 getypt. Er word teruggegaan naar het begin van het menu.");
         }
         menu();
+    }
+
+    public static void case8(){
+        Result.meestGeslaagdeStudent();
     }
 
 }
@@ -266,31 +270,47 @@ class Result{
         allResults.add(result);
     }
 
+    public static ArrayList<Result> getAllResults(){
+        return allResults;
+    }
+
     public static void getResult(Student student, Examen examen){
         allResults.forEach( result -> {
-                if(student == result.student && examen == result.examen){
-                    if(result.result){
-                        System.out.println("Je hebt het examen gehaald");
-                    } else {
-                        System.out.println("Je hebt het examen niet gehaald");
+                    if(student == result.student && examen == result.examen){
+                        if(result.result){
+                            System.out.println("Je hebt het examen gehaald");
+                        } else {
+                            System.out.println("Je hebt het examen niet gehaald");
+                        }
                     }
                 }
-            }
         );
     }
 
-//    public Student meestGeslaagdeStudent(){
-//        Integer count = 0;
-//        Student.getAllStudents().forEach((chosenStudent) -> {
-//                    allResults.forEach((chosenResult) -> {
-//                        if(chosenResult.student.equals(chosenStudent)){
-//                            count++;
-//                        }
-//                    });
-//                }
-//        );
-//        return winner;
-//    }
+    public static void meestGeslaagdeStudent(){
+        // set variabelen
+        int hoogsteScore = 0;
+        int optelNummer = 0;
+        Student besteStudent = null;
+
+        ArrayList<Student> studenten = Student.getAllStudents();
+        ArrayList<Result> results = getAllResults();
+
+        for (Student student : studenten){
+            optelNummer = 0;
+            for (Result resultaat : results){
+                if (resultaat.student.equals(student)){
+                    if(resultaat.result){
+                        optelNummer++;
+                    }
+                }
+                if (optelNummer >= hoogsteScore) {
+                    besteStudent = student;
+                }
+            }
+        }
+        System.out.println(besteStudent.getName());
+    }
 }
 
 class Main {
