@@ -193,7 +193,7 @@ class Menu extends Main{
             case 4 -> case4();
             case 5 -> case5();
             case 6 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 7 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 7 -> case7();
             case 8 -> System.out.println(Student.getAllStudents()); //bullshit
             default -> {
                 System.out.println("Voer een getal van 0 t/m 8: ");
@@ -220,7 +220,7 @@ class Menu extends Main{
         Student.createStudent(name);
     }
     public static void case4() {
-        System.out.println("Geef het studentnummer van de student die je wilt verwijderen:");
+        System.out.println("Geef het nummer van de student die je wilt verwijderen:");
         int studentennummer = scanner.nextInt();
         for (Student student : Student.allStudents) {
             if (student.nummer == studentennummer) {
@@ -245,6 +245,17 @@ class Menu extends Main{
             default -> System.out.println("Er is geen 1 of 2 getypt. Er word teruggegaan naar het begin van het menu.");
         }
         menu();
+    }
+    public static void case7() {
+        System.out.println("Geef het nummer van de student waarvan je alle geslaagde examens wilt:");
+        int studentennummer = scanner.nextInt();
+        for (Result result : Result.allResults) {
+            if (result.student.nummer == studentennummer) {
+                if (result.result) {
+                    System.out.println(result.examen.naam);
+                }
+            }
+        }
     }
 
 }
