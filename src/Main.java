@@ -367,11 +367,11 @@ class Main {
         var alleStudenten = Student.getAllStudents();
         alleStudenten.forEach(student -> {
             // gehaalde aardrijkskunde examens
-            Result.registerResult(student, aardrijkskundeExamen, true);
+            Result.registerResult(student, aardrijkskundeExamen, false);
         });
         alleStudenten.forEach(student -> {
             // niet behaalde biologie examens
-            Result.registerResult(student, biologieExamen, false);
+            Result.registerResult(student, biologieExamen, true);
         });
 
         System.out.println("Menu");
