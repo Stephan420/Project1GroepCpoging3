@@ -1,5 +1,6 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -193,9 +194,8 @@ class Menu extends Main{
             case 3 -> case3();
             case 4 -> case4();
             case 5 -> case5();
-            case 6 -> case6();
             case 7 -> case7();
-            case 8 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 8 -> case8();
             default -> {
                 System.out.println("Voer een getal van 0 t/m 8: ");
                 menu();
@@ -229,7 +229,6 @@ class Menu extends Main{
                 System.out.println("Student verwijderd");
             }
         }
-
     }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
@@ -283,6 +282,10 @@ class Menu extends Main{
         }
     }
 
+    public static void case8(){
+        Result.meestGeslaagdeStudent();
+    }
+
 }
 
 class Result{
@@ -302,6 +305,10 @@ class Result{
         allResults.add(result);
     }
 
+    public static ArrayList<Result> getAllResults(){
+        return allResults;
+    }
+
     public static void getResult(Student student, Examen examen){
         System.out.println(student.naam + " " + examen.naam);
         allResults.forEach( result -> {
@@ -316,18 +323,30 @@ class Result{
         );
     }
 
-//    public Student meestGeslaagdeStudent(){
-//        Integer count = 0;
-//        Student.getAllStudents().forEach((chosenStudent) -> {
-//                    allResults.forEach((chosenResult) -> {
-//                        if(chosenResult.student.equals(chosenStudent)){
-//                            count++;
-//                        }
-//                    });
-//                }
-//        );
-//        return winner;
-//    }
+    public static void meestGeslaagdeStudent(){
+        // set variabelen
+        int hoogsteScore = 0;
+        int optelNummer = 0;
+        Student besteStudent = null;
+
+        ArrayList<Student> studenten = Student.getAllStudents();
+        ArrayList<Result> results = getAllResults();
+
+        for (Student student : studenten){
+            optelNummer = 0;
+            for (Result resultaat : results){
+                if (resultaat.student.equals(student)){
+                    if(resultaat.result){
+                        optelNummer++;
+                    }
+                }
+                if (optelNummer >= hoogsteScore) {
+                    besteStudent = student;
+                }
+            }
+        }
+        System.out.println(besteStudent.getName());
+    }
 }
 
 class Main {
