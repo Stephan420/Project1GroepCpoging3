@@ -194,6 +194,7 @@ class Menu extends Main{
             case 3 -> case3();
             case 4 -> case4();
             case 5 -> case5();
+            case 6 -> case6();
             case 7 -> case7();
             case 8 -> case8();
             default -> {
