@@ -59,8 +59,22 @@ class Examen {
 
     //Hier word met behulp van een for loop de toets AK afgenomen
     //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
-    public static void printVragenAK(ArrayList<Vraag> alleVragenAK) {
+    public static void printVragenAK(ArrayList<Vraag> alleVragenAK, Examen aardrijkskunde) {
         Scanner scanner = new Scanner(System.in);
+        boolean gevonden = false;
+        Student gekozenStudent = new Student(null);
+        while(!gevonden){
+            System.out.println("Geef je studentnummer op: ");
+            int studentnummer = scanner.nextInt();
+            scanner.nextLine();
+            ArrayList<Student> allStudents = Student.getAllStudents();
+            for (Student student : allStudents){
+                if(student.getNumber() == studentnummer){
+                    gekozenStudent = student;
+                    gevonden = true;
+                }
+            }
+        }
         String antwoordAK = "";
         String checkAntwoordAK = "";
         int counter = 0;
@@ -88,18 +102,34 @@ class Examen {
         if (counter >=3){
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
+            Result.registerResult(gekozenStudent, aardrijkskunde, true);
         }
         else{
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
+            Result.registerResult(gekozenStudent, aardrijkskunde, false);
         }
 
     }
 
     //Hier word met behulp van een for loop de toets BIO afgenomen
     //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
-    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO){
+    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO, Examen biologie){
         Scanner scanner = new Scanner(System.in);
+        boolean gevonden = false;
+        Student gekozenStudent = new Student(null);
+        while(!gevonden){
+            System.out.println("Geef je studentnummer op: ");
+            int studentnummer = scanner.nextInt();
+            scanner.nextLine();
+            ArrayList<Student> allStudents = Student.getAllStudents();
+            for (Student student : allStudents){
+                if(student.getNumber() == studentnummer){
+                    gekozenStudent = student;
+                    gevonden = true;
+                }
+            }
+        }
         String antwoordBIO = "";
         String checkAntwoordBIO = "";
         int counter = 0;
@@ -126,10 +156,12 @@ class Examen {
         if (counter >=3){
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
+            Result.registerResult(gekozenStudent, biologie , true);
         }
         else{
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
+            Result.registerResult(gekozenStudent, biologie , false);
         }
     }
 
@@ -149,7 +181,7 @@ class Vraag {
 class Student{
     String naam;
     int nummer;
-    static int volgendnummer = 973645;
+    static int volgendnummer = 1;
     static ArrayList<Student> allStudents = new ArrayList<Student>();
 
     Student(String naam) {
@@ -240,9 +272,9 @@ class Menu extends Main{
         scanner.nextLine();
         switch (examenKeuze){
             //Wanneer 1 word getypt begint het AK examen
-            case 1 -> aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK());
+            case 1 -> aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK(), aardrijkskundeExamen);
             //Wanneer 2 word getypt begint het BIO examen
-            case 2 -> biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO());
+            case 2 -> biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO(), biologieExamen);
             default -> System.out.println("Er is geen 1 of 2 getypt. Er word teruggegaan naar het begin van het menu.");
         }
         menu();
