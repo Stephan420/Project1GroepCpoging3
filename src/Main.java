@@ -1,20 +1,18 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
-class Examen extends Menu{
+class Examen {
     String naam;
     int aantalvragen;
-    Boolean examenResultaat;
     ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
     ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
 
-    public Examen(String naam, int aantalvragen
-            //, Boolean examenResultaat
-    ){
+    public Examen(String naam, int aantalvragen){
         this.naam = naam;
         this.aantalvragen = aantalvragen;
-        //this.examenResultaat = examenResultaat;
     }
 
     //Hier word de methode aangemaakt met een arraylist alleVragenAK waarin de vragen van AK worden aangemaakt en opgeslagen
@@ -61,13 +59,27 @@ class Examen extends Menu{
 
     //Hier word met behulp van een for loop de toets AK afgenomen
     //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
-    public static void printVragenAK(ArrayList<Vraag> alleVragenAK) {
+    public static void printVragenAK(ArrayList<Vraag> alleVragenAK, Examen aardrijkskunde) {
         Scanner scanner = new Scanner(System.in);
+        boolean gevonden = false;
+        Student gekozenStudent = new Student(null);
+        while(!gevonden){
+            System.out.println("Geef je studentnummer op: ");
+            int studentnummer = scanner.nextInt();
+            scanner.nextLine();
+            ArrayList<Student> allStudents = Student.getAllStudents();
+            for (Student student : allStudents){
+                if(student.getNumber() == studentnummer){
+                    gekozenStudent = student;
+                    gevonden = true;
+                }
+            }
+        }
         String antwoordAK = "";
         String checkAntwoordAK = "";
         int counter = 0;
         for (Vraag vraag : alleVragenAK) {
-            boolean correct = true;
+            Boolean correct = true;
             while (correct) {
                 System.out.println(vraag.vraag);
                 antwoordAK = scanner.nextLine();
@@ -86,43 +98,43 @@ class Examen extends Menu{
             }
 
         }
+        System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
+        if (counter >=3){
+            System.out.println("Je hebt " + counter + " goed.");
+            System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
+            Result.registerResult(gekozenStudent, aardrijkskunde, true);
+        }
+        else{
+            System.out.println("Je hebt " + counter + " goed");
+            System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
+            Result.registerResult(gekozenStudent, aardrijkskunde, false);
+        }
+
+    }
+
+    //Hier word met behulp van een for loop de toets BIO afgenomen
+    //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
+    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO, Examen biologie){
+        Scanner scanner = new Scanner(System.in);
         boolean gevonden = false;
-        //Het studentnummer word opgevraagd
         Student gekozenStudent = new Student(null);
-        while (!gevonden){
+        while(!gevonden){
             System.out.println("Geef je studentnummer op: ");
             int studentnummer = scanner.nextInt();
             scanner.nextLine();
             ArrayList<Student> allStudents = Student.getAllStudents();
-            for (Student student : allStudents) {
+            for (Student student : allStudents){
                 if(student.getNumber() == studentnummer){
                     gekozenStudent = student;
                     gevonden = true;
                 }
             }
         }
-        System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
-        if (counter >=3){
-            System.out.println("Je hebt " + counter + " goed.");
-            System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            //Result.registerResult(gekozenStudent, aardrijkskundeExamen, true);
-        }
-        else{
-            System.out.println("Je hebt " + counter + " goed");
-            System.out.println("Dit betekent dat je niet geslaagd bent voor dit examen");
-            //Result.registerResult(gekozenStudent, aardrijkskundeExamen, false);
-        }
-    }
-
-    //Hier word met behulp van een for loop de toets BIO afgenomen
-    //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
-    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO){
-        Scanner scanner = new Scanner(System.in);
         String antwoordBIO = "";
         String checkAntwoordBIO = "";
         int counter = 0;
         for (Vraag vraag : alleVragenBIO) {
-            boolean correct = true;
+            Boolean correct = true;
             while(correct){
                 System.out.println(vraag.vraag);
                 antwoordBIO = scanner.nextLine();
@@ -140,35 +152,19 @@ class Examen extends Menu{
                 }
             }
         }
-        boolean gevonden = false;
-        //Het studentnummer word opgevraagd
-        Student gekozenStudent = new Student(null);
-        while (!gevonden){
-            System.out.println("Geef je studentnummer op: ");
-            int studentnummer = scanner.nextInt();
-            scanner.nextLine();
-            ArrayList<Student> allStudents = Student.getAllStudents();
-            for (Student student : allStudents) {
-                if(student.getNumber() == studentnummer){
-                    gekozenStudent = student;
-                    gevonden = true;
-                }
-            }
-        }
         System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
         if (counter >=3){
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Result.registerResult(gekozenStudent, biologieExamen, true);
-            Result.getResult(gekozenStudent, biologieExamen);
+            Result.registerResult(gekozenStudent, biologie , true);
         }
         else{
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Result.registerResult(gekozenStudent, biologieExamen, false);
-            Result.getResult(gekozenStudent, biologieExamen);
+            Result.registerResult(gekozenStudent, biologie , false);
         }
     }
+
 }
 
 //Dit is de class vraag die word gebruikt bij de class examen
@@ -185,7 +181,7 @@ class Vraag {
 class Student{
     String naam;
     int nummer;
-    static int volgendnummer = 973645;
+    static int volgendnummer = 1;
     static ArrayList<Student> allStudents = new ArrayList<Student>();
 
     Student(String naam) {
@@ -228,11 +224,11 @@ class Menu extends Main{
             case 1 -> case1();
             case 2 -> case2();
             case 3 -> case3();
-            case 4 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 4 -> case4();
             case 5 -> case5();
-            case 6 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 7 -> System.out.println(Student.getAllStudents()); //bullshit
-            case 8 -> System.out.println(Student.getAllStudents()); //bullshit
+            case 6 -> case6();
+            case 7 -> case7();
+            case 8 -> case8();
             default -> {
                 System.out.println("Voer een getal van 0 t/m 8: ");
                 menu();
@@ -257,6 +253,16 @@ class Menu extends Main{
         String name = scanner.nextLine();
         Student.createStudent(name);
     }
+    public static void case4() {
+        System.out.println("Geef het nummer van de student die je wilt verwijderen:");
+        int studentennummer = scanner.nextInt();
+        for (Student student : Student.allStudents) {
+            if (student.nummer == studentennummer) {
+                Student.allStudents.remove(student);
+                System.out.println("Student verwijderd");
+            }
+        }
+    }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
         System.out.println("Geef het getal van het examen dat je wilt afnemen: ");
@@ -264,21 +270,55 @@ class Menu extends Main{
         System.out.println("2. biologie");
         int examenKeuze = scanner.nextInt();
         scanner.nextLine();
-
-
         switch (examenKeuze){
             //Wanneer 1 word getypt begint het AK examen
-            case 1 -> {
-                aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK());
-            }
+            case 1 -> aardrijkskundeExamen.printVragenAK(Examen.initialiseerExamenVragenAK(), aardrijkskundeExamen);
             //Wanneer 2 word getypt begint het BIO examen
-            case 2 -> {
-                biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO());
-            }
+            case 2 -> biologieExamen.printVragenBIO(Examen.initialiseerExamenVragenBIO(), biologieExamen);
             default -> System.out.println("Er is geen 1 of 2 getypt. Er word teruggegaan naar het begin van het menu.");
         }
         menu();
     }
+    public static Student studentnum(int studentennummer) {
+        for (Student student : Student.allStudents) {
+            if (student.nummer == studentennummer) {
+                return student;
+            }
+        }
+        return null;
+    }
+    public static Examen exam(String naam) {
+        if (naam.equals("Biologie")) {
+            return biologieExamen;
+        }
+        else {
+            return aardrijkskundeExamen;
+        }
+    }
+    public static void case6() {
+        System.out.println("Geef het nummer van de student");
+        int studentennummer = scanner.nextInt();
+        System.out.println("Geef het examen");
+        scanner.nextLine();
+        String exam = scanner.nextLine();
+        Result.getResult(studentnum(studentennummer),exam(exam));
+    }
+    public static void case7() {
+        System.out.println("Geef het nummer van de student waarvan je alle geslaagde examens wilt:");
+        int studentennummer = scanner.nextInt();
+        for (Result result : Result.allResults) {
+            if (result.student.nummer == studentennummer) {
+                if (result.result) {
+                    System.out.println(result.examen.naam);
+                }
+            }
+        }
+    }
+
+    public static void case8(){
+        Result.meestGeslaagdeStudent();
+    }
+
 }
 
 class Result{
@@ -298,38 +338,55 @@ class Result{
         allResults.add(result);
     }
 
+    public static ArrayList<Result> getAllResults(){
+        return allResults;
+    }
+
     public static void getResult(Student student, Examen examen){
+        System.out.println(student.naam + " " + examen.naam);
         allResults.forEach( result -> {
                     if(student == result.student && examen == result.examen){
                         if(result.result){
-                            System.out.println("Je hebt het examen gehaald");
+                            System.out.println("Deze student heeft het examen gehaald");
                         } else {
-                            System.out.println("Je hebt het examen niet gehaald");
+                            System.out.println("Deze student heeft het examen niet gehaald");
                         }
                     }
                 }
         );
     }
 
-//    public Student meestGeslaagdeStudent(){
-//        Integer count = 0;
-//        Student.getAllStudents().forEach((chosenStudent) -> {
-//                    allResults.forEach((chosenResult) -> {
-//                        if(chosenResult.student.equals(chosenStudent)){
-//                            count++;
-//                        }
-//                    });
-//                }
-//        );
-//        return winner;
-//    }
+    public static void meestGeslaagdeStudent(){
+        // set variabelen
+        int hoogsteScore = 0;
+        int optelNummer = 0;
+        Student besteStudent = null;
+
+        ArrayList<Student> studenten = Student.getAllStudents();
+        ArrayList<Result> results = getAllResults();
+
+        for (Student student : studenten){
+            optelNummer = 0;
+            for (Result resultaat : results){
+                if (resultaat.student.equals(student)){
+                    if(resultaat.result){
+                        optelNummer++;
+                    }
+                }
+                if (optelNummer >= hoogsteScore) {
+                    besteStudent = student;
+                }
+            }
+        }
+        System.out.println(besteStudent.getName());
+    }
 }
 
 class Main {
     static Scanner scanner = new Scanner(System.in);
     //Hier worden de objecten van de examens aangemaakt
-     static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
-     static Examen biologieExamen = new Examen("Biologie", 5);
+    static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
+    static Examen biologieExamen = new Examen("Biologie", 5);
 
     static ArrayList<Examen> examens = new ArrayList<>();
 
@@ -338,16 +395,16 @@ class Main {
         Student.createStudent("Jeroen");
         Student.createStudent("Pim");
 
-//        // hardcoded resultaten:
-//        var alleStudenten = Student.getAllStudents();
-//        alleStudenten.forEach(student -> {
-//            // gehaalde aardrijkskunde examens
-//            Result.registerResult(student, aardrijkskundeExamen, true);
-//        });
-//        alleStudenten.forEach(student -> {
-//            // niet behaalde biologie examens
-//            Result.registerResult(student, biologieExamen, false);
-//        });
+        // hardcoded resultaten:
+        var alleStudenten = Student.getAllStudents();
+        alleStudenten.forEach(student -> {
+            // gehaalde aardrijkskunde examens
+            Result.registerResult(student, aardrijkskundeExamen, false);
+        });
+        alleStudenten.forEach(student -> {
+            // niet behaalde biologie examens
+            Result.registerResult(student, biologieExamen, true);
+        });
 
         System.out.println("Menu");
         Menu.menu();
