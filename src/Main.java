@@ -78,8 +78,8 @@ class Examen {
             System.out.println("Geef je studentnummer op: ");
             int studentnummer = scanner.nextInt();
             scanner.nextLine();
-            ArrayList<Student> allStudents = Student.getAllStudents();
-            for (Student student : allStudents) {
+            ArrayList<Student> alleStudenten = Student.getAlleStudenten();
+            for (Student student : alleStudenten) {
                 if (student.getStudentnummer() == studentnummer) {
                     gekozenStudent = student;
                     gevonden = true;
@@ -132,8 +132,8 @@ class Examen {
             System.out.println("Geef je studentnummer op: ");
             int studentnummer = scanner.nextInt();
             scanner.nextLine();
-            ArrayList<Student> allStudents = Student.getAllStudents();
-            for (Student student : allStudents) {
+            ArrayList<Student> alleStudenten = Student.getAlleStudenten();
+            for (Student student : alleStudenten) {
                 if (student.getStudentnummer() == studentnummer) {
                     gekozenStudent = student;
                     gevonden = true;
@@ -191,7 +191,7 @@ class Student {
     String naam;
     int studentnummer;
     static int volgendnummer = 1;
-    static ArrayList<Student> allStudents = new ArrayList<Student>();
+    static ArrayList<Student> alleStudenten = new ArrayList<Student>();
 
     Student(String naam) {
         this.naam = naam;
@@ -200,11 +200,10 @@ class Student {
     }
 
     public static void createStudent(String name) {
-        Student newStudent = new Student(name);
-        allStudents.add(newStudent);
+        alleStudenten.add(new Student(name));
     }
 
-    public String getName() {
+    public String getNaam() {
         return this.naam;
     }
 
@@ -212,8 +211,8 @@ class Student {
         return this.studentnummer;
     }
 
-    public static ArrayList<Student> getAllStudents() {
-        return allStudents;
+    public static ArrayList<Student> getAlleStudenten() {
+        return alleStudenten;
     }
 }
 
@@ -260,10 +259,10 @@ class Menu {
     }
 
     public static void case2() {
-        ArrayList<Student> studenten = Student.getAllStudents();
+        ArrayList<Student> studenten = Student.getAlleStudenten();
         System.out.println("De lijst met studenten is: ");
         studenten.forEach(student -> {
-            System.out.println("Student: " + student.getName() + " Studentnummer: " + student.getStudentnummer());
+            System.out.println("Student: " + student.getNaam() + " Studentnummer: " + student.getStudentnummer());
         });
         System.out.println();
         menu();
@@ -281,15 +280,15 @@ class Menu {
     public static void case4() {
         System.out.println("Geef het nummer van de student die je wilt verwijderen:");
         int studentNummer = scanner.nextInt();
-//        for (Student student : Student.allStudents) {
+//        for (Student student : Student.alleStudenten) {
 //            if (student.studentnummer == studentNummer) {
-//                Student.allStudents.remove(student);
+//                Student.alleStudenten.remove(student);
 //                System.out.println("Student verwijderd");
 //            }
 //        }
-        for(int i = 1; i < Student.allStudents.size(); i++){
-            if (Student.allStudents.get(i).studentnummer == studentNummer) {
-                Student.allStudents.remove(Student.allStudents.get(i).studentnummer);
+        for(int i = 1; i < Student.alleStudenten.size(); i++){
+            if (Student.alleStudenten.get(i).studentnummer == studentNummer) {
+                Student.alleStudenten.remove(Student.alleStudenten.get(i).studentnummer);
                 System.out.println("Student verwijderd");
             } else {
                 System.out.println("welloe werkt deze");
@@ -316,7 +315,7 @@ class Menu {
     }
 
     public static Student studentnum(int studentennummer) {
-        for (Student student : Student.allStudents) {
+        for (Student student : Student.alleStudenten) {
             if (student.studentnummer == studentennummer) {
                 return student;
             }
@@ -333,11 +332,11 @@ class Menu {
     }
 
     public static void case6() {
-        try {
+//        try {
             System.out.println("Geef het nummer van de student: ");
             int studentNummer = scanner.nextInt();
             scanner.nextLine();
-            for (Student student : Student.allStudents) {
+            for (Student student : Student.alleStudenten) {
                 if (student.studentnummer == studentNummer) {
                     String examen = "";
                     while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
@@ -349,9 +348,9 @@ class Menu {
                     //System.out.println("Geef het juiste examen op. Dit zijn: Aardrijkskunde of Biologie");
                 }
             }
-        } catch (Exception e) {
-            System.out.println("De opgegeven student bestaat niet");
-        }
+//        } catch (Exception e) {
+//            System.out.println("De opgegeven student bestaat niet");
+//        }
         System.out.println();
         menu();
     }
@@ -414,7 +413,7 @@ class Result {
         int optelNummer = 0;
         Student besteStudent = null;
 
-        ArrayList<Student> studenten = Student.getAllStudents();
+        ArrayList<Student> studenten = Student.getAlleStudenten();
         ArrayList<Result> results = getAllResults();
 
         for (Student student : studenten) {
@@ -430,7 +429,7 @@ class Result {
                 }
             }
         }
-        System.out.println(besteStudent.getName());
+        System.out.println(besteStudent.getNaam());
     }
 }
 
@@ -445,7 +444,7 @@ public class Main {
         Student.createStudent("Pim");
 
         // hardcoded resultaten:
-        var alleStudenten = Student.getAllStudents();
+        var alleStudenten = Student.getAlleStudenten();
         alleStudenten.forEach(student -> {
             // gehaalde aardrijkskunde examens
             Result.registerResult(student, Examen.getAlleExamens().get(0), false);
