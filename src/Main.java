@@ -90,7 +90,7 @@ class Examen {
         String checkAntwoordAK = "";
         int counter = 0;
         for (Vraag vraag : alleVragenAK) {
-            Boolean correct = true;
+            boolean correct = true;
             while (correct) {
                 System.out.println(vraag.vraag);
                 antwoordAK = scanner.nextLine();
@@ -219,7 +219,6 @@ class Student {
 class Menu {
     static Scanner scanner = new Scanner(System.in);
 
-
     public static void menu() {
         System.out.println("1) Lijst met examens");
         System.out.println("2) Lijst met studenten");
@@ -272,6 +271,8 @@ class Menu {
         System.out.println("Geef de naam van de student: ");
         String name = scanner.nextLine();
         Student.createStudent(name);
+        System.out.println();
+        System.out.println("De student is ingeschreven");
         System.out.println();
         menu();
     }
@@ -328,25 +329,24 @@ class Menu {
     }
 
     public static void case6() {
-//        try {
         System.out.println("Geef het nummer van de student: ");
-        int studentNummer = scanner.nextInt();
+        int studentNummerCheck = scanner.nextInt();
         scanner.nextLine();
         for (Student student : Student.alleStudenten) {
-            if (student.studentnummer == studentNummer) {
+            while (student.studentnummer != studentNummerCheck){
+                System.out.println("Geef de nummer van de student");
+                studentNummerCheck = scanner.nextInt();
+            }
+            if (student.studentnummer == studentNummerCheck) {
                 String examen = "";
                 while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
-                    System.out.println("Geef het examen op: ");
+                    System.out.println("Geef het examen op: (Biologie of Aardrijkskunde) ");
                     examen = scanner.nextLine();
                 }
-                Result.getResult(studentnum(studentNummer), exam(examen));
+                Result.getResult(studentnum(studentNummerCheck), exam(examen));
 
-                //System.out.println("Geef het juiste examen op. Dit zijn: Aardrijkskunde of Biologie");
             }
         }
-//        } catch (Exception e) {
-//            System.out.println("De opgegeven student bestaat niet");
-//        }
         System.out.println();
         menu();
     }
@@ -364,7 +364,9 @@ class Menu {
     }
 
     public static void case8() {
+        System.out.print("De student met de meest gehaalde examens is: ");
         Result.meestGeslaagdeStudent();
+        menu();
     }
 
 }
