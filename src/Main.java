@@ -7,8 +7,8 @@ import java.util.Scanner;
 class Examen {
     String naam;
     int aantalvragen;
-    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
-    ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
+//    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
+//    ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
     //Hier worden de objecten van de examens aangemaakt
     static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
     static Examen biologieExamen = new Examen("Biologie", 5);
@@ -16,6 +16,14 @@ class Examen {
     public Examen(String naam, int aantalvragen) {
         this.naam = naam;
         this.aantalvragen = aantalvragen;
+    }
+
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "naam='" + naam + '\'' +
+                ", aantalvragen=" + aantalvragen +
+                '}';
     }
 
     //Hier word de methode aangemaakt met een arraylist alleVragenAK waarin de vragen van AK worden aangemaakt en opgeslagen
@@ -185,6 +193,14 @@ class Vraag {
         this.vraag = vraag;
         this.antwoord = antwoord;
     }
+
+    @Override
+    public String toString() {
+        return "Vraag{" +
+                "vraag='" + vraag + '\'' +
+                ", antwoord=" + antwoord +
+                '}';
+    }
 }
 
 class Student {
@@ -268,11 +284,13 @@ class Menu {
     }
 
     public static void case3() {
+        ArrayList<Student> studenten = Student.getAlleStudenten();
         System.out.println("Geef de naam van de student: ");
         String name = scanner.nextLine();
         Student.createStudent(name);
         System.out.println();
         System.out.println("De student is ingeschreven");
+        System.out.println("Uw studentnummer is: " + Student.alleStudenten.get(Student.alleStudenten.size() - 1).getStudentnummer());
         System.out.println();
         menu();
     }
@@ -333,10 +351,10 @@ class Menu {
         int studentNummerCheck = scanner.nextInt();
         scanner.nextLine();
         for (Student student : Student.alleStudenten) {
-            while (student.studentnummer != studentNummerCheck){
-                System.out.println("Geef de nummer van de student");
-                studentNummerCheck = scanner.nextInt();
-            }
+//            while (student.studentnummer != studentNummerCheck){
+//                System.out.println("Geef de nummer van de student");
+//                studentNummerCheck = scanner.nextInt();
+//            }
             if (student.studentnummer == studentNummerCheck) {
                 String examen = "";
                 while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
@@ -344,7 +362,6 @@ class Menu {
                     examen = scanner.nextLine();
                 }
                 Result.getResult(studentnum(studentNummerCheck), exam(examen));
-
             }
         }
         System.out.println();
@@ -354,6 +371,7 @@ class Menu {
     public static void case7() {
         System.out.println("Geef het nummer van de student waarvan je alle geslaagde examens wilt:");
         int studentennummer = scanner.nextInt();
+        scanner.nextLine();
         for (Result result : Result.allResults) {
             if (result.student.studentnummer == studentennummer) {
                 if (result.result) {
@@ -361,11 +379,14 @@ class Menu {
                 }
             }
         }
+        System.out.println();
+        menu();
     }
 
     public static void case8() {
         System.out.print("De student met de meest gehaalde examens is: ");
         Result.meestGeslaagdeStudent();
+        System.out.println();
         menu();
     }
 
@@ -408,21 +429,21 @@ class Result {
     public static void meestGeslaagdeStudent() {
         // set variabelen
         int hoogsteScore = 0;
-        int optelNummer = 0;
+        int counter = 0;
         Student besteStudent = null;
 
         ArrayList<Student> studenten = Student.getAlleStudenten();
-        ArrayList<Result> results = getAllResults();
+        ArrayList<Result> resultaten = getAllResults();
 
         for (Student student : studenten) {
-            optelNummer = 0;
-            for (Result resultaat : results) {
+            counter = 0;
+            for (Result resultaat : resultaten) {
                 if (resultaat.student.equals(student)) {
                     if (resultaat.result) {
-                        optelNummer++;
+                        counter++;
                     }
                 }
-                if (optelNummer >= hoogsteScore) {
+                if (counter >= hoogsteScore) {
                     besteStudent = student;
                 }
             }
