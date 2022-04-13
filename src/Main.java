@@ -272,28 +272,24 @@ class Menu {
         System.out.println("Geef de naam van de student: ");
         String name = scanner.nextLine();
         Student.createStudent(name);
-//        System.out.println("Uw student nummer is: " + (Student.volgendnummer - 1));
         System.out.println();
         menu();
     }
 
+
     public static void case4() {
         System.out.println("Geef het nummer van de student die je wilt verwijderen:");
         int studentNummer = scanner.nextInt();
-//        for (Student student : Student.alleStudenten) {
-//            if (student.studentnummer == studentNummer) {
-//                Student.alleStudenten.remove(student);
-//                System.out.println("Student verwijderd");
-//            }
-//        }
-        for(int i = 1; i < Student.alleStudenten.size(); i++){
-            if (Student.alleStudenten.get(i).studentnummer == studentNummer) {
-                Student.alleStudenten.remove(Student.alleStudenten.get(i).studentnummer);
+        scanner.nextLine();
+        ArrayList<Student> verwijderstudenten = new ArrayList<>();
+        for (Student student : Student.alleStudenten) {
+            if (student.getStudentnummer() == studentNummer) {
+                verwijderstudenten.add(student);
                 System.out.println("Student verwijderd");
-            } else {
-                System.out.println("welloe werkt deze");
             }
         }
+        Student.alleStudenten.removeAll(verwijderstudenten);
+        System.out.println();
         menu();
     }
 
@@ -333,21 +329,21 @@ class Menu {
 
     public static void case6() {
 //        try {
-            System.out.println("Geef het nummer van de student: ");
-            int studentNummer = scanner.nextInt();
-            scanner.nextLine();
-            for (Student student : Student.alleStudenten) {
-                if (student.studentnummer == studentNummer) {
-                    String examen = "";
-                    while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
-                        System.out.println("Geef het examen op: ");
-                        examen = scanner.nextLine();
-                    }
-                    Result.getResult(studentnum(studentNummer), exam(examen));
-
-                    //System.out.println("Geef het juiste examen op. Dit zijn: Aardrijkskunde of Biologie");
+        System.out.println("Geef het nummer van de student: ");
+        int studentNummer = scanner.nextInt();
+        scanner.nextLine();
+        for (Student student : Student.alleStudenten) {
+            if (student.studentnummer == studentNummer) {
+                String examen = "";
+                while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
+                    System.out.println("Geef het examen op: ");
+                    examen = scanner.nextLine();
                 }
+                Result.getResult(studentnum(studentNummer), exam(examen));
+
+                //System.out.println("Geef het juiste examen op. Dit zijn: Aardrijkskunde of Biologie");
             }
+        }
 //        } catch (Exception e) {
 //            System.out.println("De opgegeven student bestaat niet");
 //        }
