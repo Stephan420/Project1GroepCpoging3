@@ -256,12 +256,14 @@ class Menu extends Main{
     public static void case4() {
         System.out.println("Geef het nummer van de student die je wilt verwijderen:");
         int studentennummer = scanner.nextInt();
+        ArrayList<Student> verwijderstudenten = new ArrayList<>();
         for (Student student : Student.allStudents) {
-            if (student.nummer == studentennummer) {
-                Student.allStudents.remove(student);
+            if (student.getNumber() == studentennummer) {
+                verwijderstudenten.add(student);
                 System.out.println("Student verwijderd");
             }
         }
+        Student.allStudents.removeAll(verwijderstudenten);
     }
     public static void case5() {
         //Er word hier een getal gekozen voor het examen
