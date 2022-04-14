@@ -98,32 +98,25 @@ class Examen {
 
     //Hier word met behulp van een for loop de toets BIO afgenomen
     //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
-    public static Integer printVragenBIO(ArrayList<Vraag> alleVragenBIO, Examen biologie) {
+    public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO, Examen biologie) {
         Scanner scanner = new Scanner(System.in);
-        Student gekozenStudent = Student.getStudent();
-        String antwoord;
-        String checkAntwoord;
-        int counter = 0;
-        for (Vraag vraag : alleVragenBIO) {
-            Boolean correct = true;
-            while (correct) {
-                System.out.println(vraag.vraag);
-                antwoord = scanner.nextLine();
-                if (vraag.antwoord) {
-                    checkAntwoord = "Ja";
-                } else {
-                    checkAntwoord = "Nee";
-                }
-                if (antwoord.equals(checkAntwoord)) {
-                    correct = false;
-                    counter++;
-                }
-                if (!antwoord.equals(checkAntwoord) && (antwoord.equals("Ja") || antwoord.equals("Nee"))) {
-                    correct = false;
+        boolean gevonden = false;
+        Student gekozenStudent = new Student(null);
+        while (!gevonden) {
+            System.out.println("Geef je studentnummer op: ");
+            int studentnummer = scanner.nextInt();
+            scanner.nextLine();
+            ArrayList<Student> alleStudenten = Student.getAlleStudenten();
+            for (Student student : alleStudenten) {
+                if (student.getStudentnummer() == studentnummer) {
+                    gekozenStudent = student;
+                    gevonden = true;
                 }
             }
         }
-        return counter;
+        int counter = checkAntwoorden(alleVragenBIO);
+        checkCounter(counter, gekozenStudent, biologie);
+        System.out.println();
     }
 
     public static int checkAntwoorden(ArrayList<Vraag> alleVragenBIO){
