@@ -119,6 +119,7 @@ class Examen {
         System.out.println();
     }
 
+    //Deze method checkt of de antwoorden van de user input correct zijn
     public static int checkAntwoorden(ArrayList<Vraag> alleVragenBIO){
         Scanner scanner = new Scanner(System.in);
         String antwoord = "";
@@ -146,6 +147,7 @@ class Examen {
         return counter;
     }
 
+    //Deze method checkt met de counter of je het examen hebt gehaald
     public static boolean checkCounter(int counter, Student gekozenStudent, Examen examen) {
         System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
         if (counter >= 3) {
