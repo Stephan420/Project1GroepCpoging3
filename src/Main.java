@@ -4,8 +4,6 @@ import java.util.*;
 class Examen {
     String naam;
     int aantalvragen;
-    //    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
-//    ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
     //Hier worden de objecten van de examens aangemaakt
     static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
     static Examen biologieExamen = new Examen("Biologie", 5);
