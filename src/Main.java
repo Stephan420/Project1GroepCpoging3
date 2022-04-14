@@ -7,7 +7,7 @@ import java.util.Scanner;
 class Examen {
     String naam;
     int aantalvragen;
-//    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
+    //    ArrayList<Vraag> alleVragenAK = initialiseerExamenVragenAK();
 //    ArrayList<Vraag> alleVragenBIO = initialiseerExamenVragenBIO();
     //Hier worden de objecten van de examens aangemaakt
     static Examen aardrijkskundeExamen = new Examen("Aardrijkskunde", 5);
@@ -117,16 +117,7 @@ class Examen {
             }
 
         }
-        System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
-        if (counter >= 3) {
-            System.out.println("Je hebt " + counter + " goed.");
-            System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Result.registreerResult(gekozenStudent, aardrijkskunde, true);
-        } else {
-            System.out.println("Je hebt " + counter + " goed");
-            System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Result.registreerResult(gekozenStudent, aardrijkskunde, false);
-        }
+        checkCounter(counter, gekozenStudent, aardrijkskunde);
         System.out.println();
     }
 
@@ -170,17 +161,23 @@ class Examen {
                 }
             }
         }
+        checkCounter(counter, gekozenStudent, biologie);
+        System.out.println();
+    }
+
+    public static boolean checkCounter(int counter, Student gekozenStudent, Examen examen) {
         System.out.println("Bij dit examen heb je minimaal 3 goed nodig om een voldoende te halen");
         if (counter >= 3) {
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Result.registreerResult(gekozenStudent, biologie, true);
+            Result.registreerResult(gekozenStudent, examen, true);
+            return true;
         } else {
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Result.registreerResult(gekozenStudent, biologie, false);
+            Result.registreerResult(gekozenStudent, examen, false);
+            return false;
         }
-        System.out.println();
     }
 }
 
