@@ -121,11 +121,11 @@ class Examen {
         if (counter >= 3) {
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Result.registerResult(gekozenStudent, aardrijkskunde, true);
+            Result.registreerResult(gekozenStudent, aardrijkskunde, true);
         } else {
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Result.registerResult(gekozenStudent, aardrijkskunde, false);
+            Result.registreerResult(gekozenStudent, aardrijkskunde, false);
         }
         System.out.println();
     }
@@ -174,11 +174,11 @@ class Examen {
         if (counter >= 3) {
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Result.registerResult(gekozenStudent, biologie, true);
+            Result.registreerResult(gekozenStudent, biologie, true);
         } else {
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Result.registerResult(gekozenStudent, biologie, false);
+            Result.registreerResult(gekozenStudent, biologie, false);
         }
         System.out.println();
     }
@@ -215,7 +215,7 @@ class Student {
         volgendnummer++;
     }
 
-    public static void createStudent(String name) {
+    public static void maakStudent(String name) {
         alleStudenten.add(new Student(name));
     }
 
@@ -287,7 +287,7 @@ class Menu {
         ArrayList<Student> studenten = Student.getAlleStudenten();
         System.out.println("Geef de naam van de student: ");
         String name = scanner.nextLine();
-        Student.createStudent(name);
+        Student.maakStudent(name);
         System.out.println();
         System.out.println("De student is ingeschreven");
         System.out.println("Uw studentnummer is: " + Student.alleStudenten.get(Student.alleStudenten.size() - 1).getStudentnummer());
@@ -404,7 +404,7 @@ class Result {
         this.result = result;
     }
 
-    public static void registerResult(Student student, Examen examen, boolean value) {
+    public static void registreerResult(Student student, Examen examen, boolean value) {
         Result result = new Result(student, examen, value);
         allResults.add(result);
     }
@@ -459,18 +459,18 @@ public class Main {
 
     public static void main(String[] args) {
         // hardcoded studenten toevoegen.
-        Student.createStudent("Jeroen");
-        Student.createStudent("Pim");
+        Student.maakStudent("Jeroen");
+        Student.maakStudent("Pim");
 
         // hardcoded resultaten:
         var alleStudenten = Student.getAlleStudenten();
         alleStudenten.forEach(student -> {
             // gehaalde aardrijkskunde examens
-            Result.registerResult(student, Examen.getAlleExamens().get(0), false);
+            Result.registreerResult(student, Examen.getAlleExamens().get(0), false);
         });
         alleStudenten.forEach(student -> {
             // niet behaalde biologie examens
-            Result.registerResult(student, Examen.getAlleExamens().get(1), true);
+            Result.registreerResult(student, Examen.getAlleExamens().get(1), true);
         });
 
         System.out.println("Menu");
