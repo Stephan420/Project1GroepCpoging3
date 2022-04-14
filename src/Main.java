@@ -94,29 +94,7 @@ class Examen {
                 }
             }
         }
-        String antwoordAK = "";
-        String checkAntwoordAK = "";
-        int counter = 0;
-        for (Vraag vraag : alleVragenAK) {
-            boolean correct = true;
-            while (correct) {
-                System.out.println(vraag.vraag);
-                antwoordAK = scanner.nextLine();
-                if (vraag.antwoord) {
-                    checkAntwoordAK = "Ja";
-                } else {
-                    checkAntwoordAK = "Nee";
-                }
-                if (antwoordAK.equals(checkAntwoordAK)) {
-                    correct = false;
-                    counter++;
-                }
-                if (!antwoordAK.equals(checkAntwoordAK) && (antwoordAK.equals("Ja") || antwoordAK.equals("Nee"))) {
-                    correct = false;
-                }
-            }
-
-        }
+        int counter = checkAntwoorden(alleVragenAK);
         checkCounter(counter, gekozenStudent, aardrijkskunde);
         System.out.println();
     }
@@ -139,30 +117,36 @@ class Examen {
                 }
             }
         }
-        String antwoordBIO = "";
-        String checkAntwoordBIO = "";
+        int counter = checkAntwoorden(alleVragenBIO);
+        checkCounter(counter, gekozenStudent, biologie);
+        System.out.println();
+    }
+    
+    public static int checkAntwoorden(ArrayList<Vraag> alleVragenBIO){
+        Scanner scanner = new Scanner(System.in);
+        String antwoord = "";
+        String checkAntwoord = "";
         int counter = 0;
         for (Vraag vraag : alleVragenBIO) {
             Boolean correct = true;
             while (correct) {
                 System.out.println(vraag.vraag);
-                antwoordBIO = scanner.nextLine();
+                antwoord = scanner.nextLine();
                 if (vraag.antwoord) {
-                    checkAntwoordBIO = "Ja";
+                    checkAntwoord = "Ja";
                 } else {
-                    checkAntwoordBIO = "Nee";
+                    checkAntwoord = "Nee";
                 }
-                if (antwoordBIO.equals(checkAntwoordBIO)) {
+                if (antwoord.equals(checkAntwoord)) {
                     correct = false;
                     counter++;
                 }
-                if (!antwoordBIO.equals(checkAntwoordBIO) && (antwoordBIO.equals("Ja") || antwoordBIO.equals("Nee"))) {
+                if (!antwoord.equals(checkAntwoord) && (antwoord.equals("Ja") || antwoord.equals("Nee"))) {
                     correct = false;
                 }
             }
         }
-        checkCounter(counter, gekozenStudent, biologie);
-        System.out.println();
+        return counter;
     }
 
     public static boolean checkCounter(int counter, Student gekozenStudent, Examen examen) {
