@@ -123,12 +123,12 @@ class Examen {
         if (counter >= 3) {
             System.out.println("Je hebt " + counter + " goed.");
             System.out.println("Dit betekent dat je geslaagd bent voor dit examen");
-            Resultaat.registreerResult(gekozenStudent, examen, true);
+            Result.registreerResult(gekozenStudent, examen, true);
             return true;
         } else {
             System.out.println("Je hebt " + counter + " goed");
             System.out.println("Dit bekent dat je niet geslaagd ben voor dit examen");
-            Resultaat.registreerResult(gekozenStudent, examen, false);
+            Result.registreerResult(gekozenStudent, examen, false);
             return false;
         }
     }
@@ -327,7 +327,7 @@ class Menu {
             System.out.println("Geef het examen op: (Biologie of Aardrijkskunde) ");
             examen = scanner.nextLine();
         }
-        Resultaat.getResult(gekozenStudent, exam(examen));
+        Result.getResult(gekozenStudent, exam(examen));
         System.out.println();
         menu();
     }
@@ -335,7 +335,7 @@ class Menu {
     public static void case7() {
         Student gekozenStudent = Student.getStudent();
         int studentnummer = gekozenStudent.studentnummer;
-        for(Resultaat result: Resultaat.allResults){
+        for(Result result: Result.allResults){
             if(result.student.studentnummer == studentnummer){
                 if(result.result){
                     System.out.println("De student is geslaagd voor: " + result.examen.naam);
@@ -352,30 +352,30 @@ class Menu {
 
     public static void case8() {
         System.out.println("De studenten met de meest gehaalde examens zijn: ");
-        Resultaat.meestGeslaagdeStudent();
+        Result.meestGeslaagdeStudent();
         System.out.println();
         menu();
     }
 }
 
-class Resultaat {
+class Result {
     public Student student;
     public Examen examen;
     public boolean result;
-    static ArrayList<Resultaat> allResults = new ArrayList<Resultaat>();
+    static ArrayList<Result> allResults = new ArrayList<Result>();
 
-    public Resultaat(Student student, Examen examen, boolean result) {
+    public Result(Student student, Examen examen, boolean result) {
         this.student = student;
         this.examen = examen;
         this.result = result;
     }
 
     public static void registreerResult(Student student, Examen examen, boolean value) {
-        Resultaat result = new Resultaat(student, examen, value);
+        Result result = new Result(student, examen, value);
         allResults.add(result);
     }
 
-    public static ArrayList<Resultaat> getAllResults() {
+    public static ArrayList<Result> getAllResults() {
         return allResults;
     }
 
@@ -396,13 +396,11 @@ class Resultaat {
         int hoogsteScore = 0;
         int counter = 0;
         Student besteStudent = null;
-
         ArrayList<Student> studenten = Student.getAlleStudenten();
-        ArrayList<Resultaat> resultaten = getAllResults();
-
+        ArrayList<Result> resultaten = getAllResults();
         for (Student student : studenten) {
             counter = 0;
-            for (Resultaat resultaat : resultaten) {
+            for (Result resultaat : resultaten) {
                 if (resultaat.student.equals(student)) {
                     if (resultaat.result) {
                         counter++;
@@ -410,12 +408,13 @@ class Resultaat {
                 }
                 if (counter >= hoogsteScore) {
                     besteStudent = student;
+                    hoogsteScore = counter;
                 }
             }
         }
         for (Student student : studenten) {
             counter = 0;
-            for (Resultaat resultaat : resultaten) {
+            for (Result resultaat : resultaten) {
                 if (resultaat.student.equals(student)) {
                     if (resultaat.result) {
                         counter++;
@@ -443,11 +442,11 @@ public class Main {
         var alleStudenten = Student.getAlleStudenten();
         alleStudenten.forEach(student -> {
             // gehaalde aardrijkskunde examens
-            Resultaat.registreerResult(student, Examen.getAlleExamens().get(0), false);
+            Result.registreerResult(student, Examen.getAlleExamens().get(0), false);
         });
         alleStudenten.forEach(student -> {
             // niet behaalde biologie examens
-            Resultaat.registreerResult(student, Examen.getAlleExamens().get(1), true);
+            Result.registreerResult(student, Examen.getAlleExamens().get(1), true);
         });
 
         System.out.println("Menu");
