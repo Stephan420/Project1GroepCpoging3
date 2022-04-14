@@ -396,10 +396,8 @@ class Result {
         int hoogsteScore = 0;
         int counter = 0;
         Student besteStudent = null;
-
         ArrayList<Student> studenten = Student.getAlleStudenten();
         ArrayList<Result> resultaten = getAllResults();
-
         for (Student student : studenten) {
             counter = 0;
             for (Result resultaat : resultaten) {
@@ -410,6 +408,7 @@ class Result {
                 }
                 if (counter >= hoogsteScore) {
                     besteStudent = student;
+                    hoogsteScore = counter;
                 }
             }
         }
