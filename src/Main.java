@@ -327,7 +327,7 @@ class Menu {
             System.out.println("Geef het examen op: (Biologie of Aardrijkskunde) ");
             examen = scanner.nextLine();
         }
-        Resultaat.getResult(gekozenStudent, exam(examen));
+        Resultaat.getResultaat(gekozenStudent, exam(examen));
         System.out.println();
         menu();
     }
@@ -375,11 +375,11 @@ class Resultaat {
         allResults.add(result);
     }
 
-    public static ArrayList<Resultaat> getAllResults() {
+    public static ArrayList<Resultaat> getAllResultaten() {
         return allResults;
     }
 
-    public static void getResult(Student student, Examen examen) {
+    public static void getResultaat(Student student, Examen examen) {
         allResults.forEach(result -> {
             if (student == result.student && examen == result.examen) {
                 if (result.result) {
@@ -398,7 +398,7 @@ class Resultaat {
         Student besteStudent = null;
 
         ArrayList<Student> studenten = Student.getAlleStudenten();
-        ArrayList<Resultaat> resultaten = getAllResults();
+        ArrayList<Resultaat> resultaten = getAllResultaten();
 
         for (Student student : studenten) {
             counter = 0;
