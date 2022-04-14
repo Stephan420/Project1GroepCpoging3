@@ -1,8 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 class Examen {
     String naam;
@@ -103,29 +100,7 @@ class Examen {
     //Elke keer wanneer een antwoord goed is gaat counter omhoog met 1
     public static void printVragenBIO(ArrayList<Vraag> alleVragenBIO, Examen biologie) {
         Scanner scanner = new Scanner(System.in);
-        boolean gevonden = false;
-        Student gekozenStudent = new Student(null);
-        while (!gevonden) {
-            System.out.println("Geef je studentnummer op: ");
-            int studentnummer = scanner.nextInt();
-            scanner.nextLine();
-            ArrayList<Student> alleStudenten = Student.getAlleStudenten();
-            for (Student student : alleStudenten) {
-                if (student.getStudentnummer() == studentnummer) {
-                    gekozenStudent = student;
-                    gevonden = true;
-                }
-            }
-        }
-        int counter = checkAntwoorden(alleVragenBIO);
-        checkCounter(counter, gekozenStudent, biologie);
-        System.out.println();
-    }
-    
-    public static int checkAntwoorden(ArrayList<Vraag> alleVragenBIO){
-        Scanner scanner = new Scanner(System.in);
-        String antwoord = "";
-        String checkAntwoord = "";
+        Student gekozenStudent = Student.getStudent();
         int counter = 0;
         for (Vraag vraag : alleVragenBIO) {
             Boolean correct = true;
@@ -210,6 +185,31 @@ class Student {
 
     public static ArrayList<Student> getAlleStudenten() {
         return alleStudenten;
+    }
+
+    public static Student getStudent(){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            boolean gevonden = false;
+            Student gekozenStudent = new Student(null);
+            while (!gevonden) {
+                System.out.println("Geef je studentnummer op: ");
+                int studentnummer = scanner.nextInt();
+                scanner.nextLine();
+                ArrayList<Student> alleStudenten = Student.getAlleStudenten();
+                for (Student student : alleStudenten) {
+                    if (student.getStudentnummer() == studentnummer) {
+                        gekozenStudent = student;
+                        gevonden = true;
+                    }
+                }
+            }
+            return gekozenStudent;
+        } catch (InputMismatchException e){
+            System.out.println("Het ingevoerde studentenummer is incorrect. Probeer het nog een keer.");
+        }
+        getStudent();
+        return null;
     }
 }
 
@@ -328,23 +328,13 @@ class Menu {
     }
 
     public static void case6() {
-        System.out.println("Geef het nummer van de student: ");
-        int studentNummerCheck = scanner.nextInt();
-        scanner.nextLine();
-        for (Student student : Student.alleStudenten) {
-//            while (student.studentnummer != studentNummerCheck){
-//                System.out.println("Geef de nummer van de student");
-//                studentNummerCheck = scanner.nextInt();
-//            }
-            if (student.studentnummer == studentNummerCheck) {
-                String examen = "";
-                while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
-                    System.out.println("Geef het examen op: (Biologie of Aardrijkskunde) ");
-                    examen = scanner.nextLine();
-                }
-                Result.getResult(studentnum(studentNummerCheck), exam(examen));
-            }
+        Student gekozenStudent = Student.getStudent();
+        String examen = "";
+        while (!examen.equals("Biologie") && !examen.equals("Aardrijkskunde")) {
+            System.out.println("Geef het examen op: (Biologie of Aardrijkskunde) ");
+            examen = scanner.nextLine();
         }
+        Result.getResult(gekozenStudent, exam(examen));
         System.out.println();
         menu();
     }
@@ -365,12 +355,11 @@ class Menu {
     }
 
     public static void case8() {
-        System.out.print("De student met de meest gehaalde examens is: ");
+        System.out.println("De studenten met de meest gehaalde examens zijn: ");
         Result.meestGeslaagdeStudent();
         System.out.println();
         menu();
     }
-
 }
 
 class Result {
@@ -396,15 +385,14 @@ class Result {
 
     public static void getResult(Student student, Examen examen) {
         allResults.forEach(result -> {
-                    if (student == result.student && examen == result.examen) {
-                        if (result.result) {
-                            System.out.println("De student " + student.naam + " heeft het examen " + examen.naam + " gehaald");
-                        } else {
-                            System.out.println("De student " + student.naam + " heeft het examen " + examen.naam + " niet gehaald");
-                        }
-                    }
+            if (student == result.student && examen == result.examen) {
+                if (result.result) {
+                    System.out.println("De student " + student.naam + " heeft het examen " + examen.naam + " gehaald");
+                } else {
+                    System.out.println("De student " + student.naam + " heeft het examen " + examen.naam + " niet gehaald");
                 }
-        );
+            }
+        });
     }
 
     public static void meestGeslaagdeStudent() {
@@ -429,7 +417,19 @@ class Result {
                 }
             }
         }
-        System.out.println(besteStudent.getNaam());
+        for (Student student : studenten) {
+            counter = 0;
+            for (Result resultaat : resultaten) {
+                if (resultaat.student.equals(student)) {
+                    if (resultaat.result) {
+                        counter++;
+                    }
+                    if(counter == hoogsteScore){
+                        System.out.println(student.getNaam());
+                    }
+                }
+            }
+        }
     }
 }
 
